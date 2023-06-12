@@ -73,6 +73,16 @@ void read_knifeFile(int *idx, knifeRecord rec[], char file[]){
     knifeCtr = *idx;
     fclose(file_knife);
 }
+void write_knifeFile(int knifeCtr, knifeRecord rec[], char file[]){
+    FILE *file_knife; // Declare a file pointer
+    file_knife = fopen(file, "w"); // Specify the pointer, and use the write mode
+    // Loops through each laptop record
+    for (int iK = 0; iK < knifeCtr; iK++){ // Inputs each rec of the knife record into the file
+        fprintf(file_knife, "%s %s %s %s %s\n", rec[iK].id, rec[iK].company, rec[iK].name, rec[iK].maker, rec[iK].steel);
+    }
+    fprintf(file_knife, "##### ##### ##### #####"); // Termination record
+    fclose(file_knife);
+}
 // Read R_Company file and inputs it to companyRecord
 void read_companyFile(int *idx, companyRecord rec[], char file[]){
     FILE *file_company; // Declare a file pointer
@@ -90,6 +100,16 @@ void read_companyFile(int *idx, companyRecord rec[], char file[]){
         }
     }
     companyCtr = *idx;
+    fclose(file_company);
+}
+void write_companyFile(int companyCtr, companyRecord rec[], char file[]){
+    FILE *file_company; // Declare a file pointer
+    file_company = fopen(file, "w"); // Specify the pointer, and use the write mode
+    // Loops through each laptop record
+    for (int i = 0; i < companyCtr; i++){ // Inputs each rec of the company record into the file
+        fprintf(file_company, "%s %s\n", rec[i].id, rec[i].name);
+    }
+    fprintf(file_company, "##### #####"); // Termination record
     fclose(file_company);
 }
 // Read R_Maker file and inputs it to makerRecord
@@ -111,6 +131,16 @@ void read_makerFile(int *idx, makerRecord rec[], char file[]){
     makerCtr = *idx;
     fclose(file_maker);
 }
+void write_makerFile(int makerCtr, makerRecord rec[], char file[]){
+    FILE *file_maker; // Declare a file pointer
+    file_maker = fopen(file, "w"); // Specify the pointer, and use the write mode
+    // Loops through each laptop record
+    for (int i = 0; i < makerCtr; i++){ // Inputs each rec of the maker record into the file
+        fprintf(file_maker, "%s %s\n", rec[i].id, rec[i].name);
+    }
+    fprintf(file_maker, "##### #####"); // Termination record
+    fclose(file_maker);
+}
 // Read R_Steel file and inputs it to steelRecord
 void read_steelFile(int *idx, steelRecord rec[], char file[]){
     FILE *file_steel; // Declare a file pointer
@@ -128,6 +158,16 @@ void read_steelFile(int *idx, steelRecord rec[], char file[]){
         }
     }
     steelCtr = *idx;
+    fclose(file_steel);
+}
+void write_steelFile(int steelCtr, steelRecord rec[], char file[]){
+    FILE *file_steel; // Declare a file pointer
+    file_steel = fopen(file, "w"); // Specify the pointer, and use the write mode
+    // Loops through each laptop record
+    for (int i = 0; i < steelCtr; i++){ // Inputs each rec of the steel record into the file
+        fprintf(file_steel, "%s %s\n", rec[i].id, rec[i].name);
+    }
+    fprintf(file_steel, "##### #####"); // Termination record
     fclose(file_steel);
 }
 
@@ -157,7 +197,7 @@ void dbms_help(){
 }
 void dbms_logo(){
     printf("     __  ___              __                 ____   ____     \n");
-    printf("    /  |/  /____ _ _____ / /__ ____  _   __ / __ \\ / __ )    Markov DB v.0.4\n");
+    printf("    /  |/  /____ _ _____ / /__ ____  _   __ / __ \\ / __ )    Markov DB v.0.4.1\n");
     printf("   / /|_/ // __ `// ___// //_// __ \\| | / // / / // __  |    \n");
     printf("  / /  / // /_/ // /   / ,<  / /_/ /| |/ // /_/ // /_/ /     [-h] or [-help] for manual\n");
     printf(" /_/  /_/ \\__,_//_/   /_/|_| \\____/ |___//_____//_____/      [-q] or [--quit] to exit\n");
@@ -246,7 +286,6 @@ int knife_update (knifeRecord knife[], char str[]){
     return 1300; // Return 1300 (Update Success);
 }
 int knife_delete (knifeRecord knife[], char str[]){
-    if (wm_end(str) == 1) return 1401; // If String ends abruptly, return 1401 (ID Not Found)
 
     // Look for same id, if not found, immediately return 1410 (Record Not Found)
     int found = search_knifeID(knife, knifeCtr, wm_getcw());
@@ -296,7 +335,6 @@ int company_update (companyRecord company[], char str[]){
     return 2300; // Return 2300 (Update Success);
 }
 int company_delete (companyRecord company[], char str[]){
-    if (wm_end(str) == 1) return 2401; // If String ends abruptly, return 2401 (ID Not Found)
 
     // Look for same id, if not found, immediately return 2410 (Record Not Found)
     int found = search_companyID(company, companyCtr, wm_getcw());
@@ -347,7 +385,6 @@ int maker_update (makerRecord maker[], char str[]){
     return 3300; // Return 3300 (Update Success);
 }
 int maker_delete (makerRecord maker[], char str[]){
-    if (wm_end(str) == 1) return 3401; // If String ends abruptly, return 3401 (ID Not Found)
 
     // Look for same id, if not found, immediately return 3410 (Record Not Found)
     int found = search_makerID(maker, makerCtr, wm_getcw());
@@ -398,7 +435,6 @@ int steel_update (steelRecord steel[], char str[]){
     return 4300; // Return 4300 (Update Success);
 }
 int steel_delete (steelRecord steel[], char str[]){
-    if (wm_end(str) == 1) return 4401; // If String ends abruptly, return 4401 (ID Not Found)
 
     // Look for same id, if not found, immediately return 4410 (Record Not Found)
     int found = search_steelID(steel, steelCtr, wm_getcw());

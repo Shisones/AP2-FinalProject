@@ -43,7 +43,7 @@ int main(){
 
             if (strcmp(str, "-h") == 0 || strcmp(str, "--help") == 0) dbms_help(); // Used for -h
             else if (strcmp(str, "-i") == 0) dbms_info(); // Used for -i
-            
+            else if (!(q || quit)) printf("[!] ERROR : DBMS Command \"%s\" not found!\n    use -h to list all available commands\n", str);
         }else if (check_syntax(str) == 1){ // DBMS Record Commands
             wm_start(str); // Start the word machine
 
@@ -169,6 +169,7 @@ int main(){
 
                 if (strcmp(wm_getcw(), "t_knife") == 0){ // If the table is 't_knife'
                     wm_next(str); // Increment to [values]
+                    report = knife_delete(knife, str); // Delete Record and retrieve input
                     // Code below is self explanatory
                     if (report == 1400) printf("[%d]: Record successfully deleted\n", report);
                     else if (report == 1410) printf("[%d]: Record delete failed : Record with id %s doesn't exist\n", report, wm_getcw());
@@ -176,6 +177,7 @@ int main(){
                 }
                 else if (strcmp(wm_getcw(), "t_company") == 0){ // If the table is 't_company'
                     wm_next(str); // Increment to [values]
+                    report = company_delete(company, str); // Delete Record and retrieve input
                     // Code below is self explanatory
                     if (report == 2400) printf("[%d]: Record successfully deleted\n", report);
                     else if (report == 2410) printf("[%d]: Record delete failed : Record with id %s doesn't exist\n", report, wm_getcw());
@@ -183,6 +185,7 @@ int main(){
                 }
                 else if (strcmp(wm_getcw(), "t_maker") == 0){ // If the table is 't_maker'
                     wm_next(str); // Increment to [values]
+                    report = maker_delete(maker, str); // Delete Record and retrieve input
                     // Code below is self explanatory
                     if (report == 3400) printf("[%d]: Record successfully deleted\n", report);
                     else if (report == 3410) printf("[%d]: Record delete failed : Record with id %s doesn't exist\n", report, wm_getcw());
@@ -190,6 +193,7 @@ int main(){
                 }
                 else if (strcmp(wm_getcw(), "t_steel") == 0){ // If the table is 't_steel'
                     wm_next(str); // Increment to [values]
+                    report = steel_delete(steel, str); // Delete Record and retrieve input
                     // Code below is self explanatory
                     if (report == 4400) printf("[%d]: Record successfully deleted\n", report);
                     else if (report == 4410) printf("[%d]: Record delete failed : Record with id %s doesn't exist\n", report, wm_getcw());
@@ -201,6 +205,10 @@ int main(){
         }else if (!(q || quit) && check_syntax(str) == -1) printf("[!] ERROR : Invalid Syntax\n    missing semicolon(;) or dash(-)\n");
     }
 
+    write_knifeFile(knifeCtr, knife, "R_Knife.dat");
+    write_companyFile(companyCtr, company, "R_Company.dat");
+    write_makerFile(makerCtr, maker, "R_Maker.dat");
+    write_steelFile(steelCtr, steel, "R_Steel.dat");
 
     return 0;
 }

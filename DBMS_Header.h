@@ -57,9 +57,16 @@ int search_steelID(steelRecord data[], int n, char target[]);
 
 // Record Reading
 void read_knifeFile(int *idx, knifeRecord rec[], char file[]);
+void write_knifeFile(int knifeCtr, knifeRecord rec[], char file[]);
+
 void read_companyFile(int *idx, companyRecord rec[], char file[]);
+void write_companyFile(int companyCtr, companyRecord rec[], char file[]);
+
 void read_makerFile(int *idx, makerRecord rec[], char file[]);
+void write_makerFile(int makerCtr, makerRecord rec[], char file[]);
+
 void read_steelFile(int *idx, steelRecord rec[], char file[]);
+void write_steelFile(int steelCtr, steelRecord rec[], char file[]);
 
 /* ----- [File CRUD] ----- */
 
