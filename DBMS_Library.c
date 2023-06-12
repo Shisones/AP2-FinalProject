@@ -263,7 +263,7 @@ void dbms_help(){
     printf(" -h, --help           Show basic help message\n");
     printf(" -q, --quit           Quit program\n");
     printf(" -i                   Show information of the db_knives database (AP2 Final Project)\n");
-    printf(" -err                 Show error codes and what they mean (AP2 Final Project)\n");
+    printf(" -e, --err                 Show error codes and what they mean (AP2 Final Project)\n");
     printf("\n");
     printf(" ----- Database Control (AP2 Final Project) ----- \n");
     printf("\n");
@@ -278,7 +278,7 @@ void dbms_help(){
 }
 void dbms_logo(){
     printf("     __  ___              __                 ____   ____     \n");
-    printf("    /  |/  /____ _ _____ / /__ ____  _   __ / __ \\ / __ )    Markov DB v.1.0\n");
+    printf("    /  |/  /____ _ _____ / /__ ____  _   __ / __ \\ / __ )    Markov DB v.1.1\n");
     printf("   / /|_/ // __ `// ___// //_// __ \\| | / // / / // __  |    \n");
     printf("  / /  / // /_/ // /   / ,<  / /_/ /| |/ // /_/ // /_/ /     [-h] or [-help] for manual\n");
     printf(" /_/  /_/ \\__,_//_/   /_/|_| \\____/ |___//_____//_____/      [-q] or [--quit] to exit\n");
@@ -294,7 +294,7 @@ void dbms_info(){
     printf(" Table Structure and Information \n");
     printf("\n");
     printf(" Knife Table (t_knife) : 5 Columns\n");
-    printf(" - knife.id[25](char)\n - knife.company[50](char)\n - knife.name[50](char)\n - knife.maker[50](char)\n - knife.steel[50](char)\n");
+    printf(" - knife.id[25](char)\n - knife.name[50](char)\n - knife.company[50](char)\n - knife.maker[50](char)\n - knife.steel[50](char)\n");
     printf("\n");
     printf(" Company Table (t_company) : 2 Columns\n");
     printf(" - company.id[25](char)\n - company.name[50](char)\n");
@@ -304,6 +304,111 @@ void dbms_info(){
     printf("\n");
     printf(" Steel Table (t_steel) : 2 Columns\n");
     printf(" - steel.id[25](char)\n - steel.name[50](char)\n");
+    printf("\n");
+}
+void dbms_error(){
+    printf(" Error Report Message Explanation:\n");
+    printf("\n");
+    printf(" First digit represents the table (e.g. 1XXX represents an process in table t_knife)\n");
+    printf(" Second digit represents the action (e.g. X3XX represents a updating process)\n");
+    printf(" Third digit represents database-side error, this error can vary between function\n");
+    printf(" Fourth digit represents user-side error, this error is usually an input error\n");
+    printf(" A successful process is usually indicated by a code where the last two digits are 0, (e.g. XX00)\n");
+    printf("\n");
+    printf(" Extensive Report Code List: \n");
+    printf("\n");
+    printf(" - 1100: t_knife CREATE success\n");
+    printf(" - 1110: t_knife CREATE failed: input id already existed\n");
+    printf(" - 1120: t_knife CREATE failed: company input doesn't exist in t_company\n");
+    printf(" - 1130: t_knife CREATE failed: maker input doesn't exist in t_maker\n");
+    printf(" - 1140: t_knife CREATE failed: steel input doesn't exist in t_steel\n");
+    printf(" - 1101: t_knife CREATE failed: input doesn't specify knife.id\n");
+    printf(" - 1102: t_knife CREATE failed: input doesn't specify knife.name\n");
+    printf(" - 1103: t_knife CREATE failed: input doesn't specify knife.company\n");
+    printf(" - 1104: t_knife CREATE failed: input doesn't specify knife.maker\n");
+    printf(" - 1105: t_knife CREATE failed: input doesn't specify knife.steel\n");
+    printf(" - 1105: t_knife CREATE failed: input doesn't specify knife.steel\n");
+    printf(" - 1105: t_knife CREATE failed: input doesn't specify knife.steel\n");
+    printf(" - 1200: t_knife READ success\n");
+    printf(" - 1210: t_knife READ failed: no records in t_knife\n");
+    printf(" - 1300: t_knife UPDATE success\n");
+    printf(" - 1310: t_knife UPDATE failed: input id doesn't exist\n");
+    printf(" - 1330: t_knife UPDATE failed: company input doesn't exist in t_company\n");
+    printf(" - 1340: t_knife UPDATE failed: maker input doesn't exist in t_maker\n");
+    printf(" - 1350: t_knife UPDATE failed: steel input doesn't exist in t_steel\n");
+    printf(" - 1301: t_knife UPDATE failed: input doesn't specify knife.id\n");
+    printf(" - 1302: t_knife UPDATE failed: input doesn't specify knife.name\n");
+    printf(" - 1303: t_knife UPDATE failed: input doesn't specify knife.company\n");
+    printf(" - 1304: t_knife UPDATE failed: input doesn't specify knife.maker\n");
+    printf(" - 1305: t_knife UPDATE failed: input doesn't specify knife.steel\n");
+    printf(" - 1400: t_knife DELETE success\n");
+    printf(" - 1410: t_knife DELETE failed: input id doesn't exist\n");
+    printf(" - 1401: t_knife DELETE failed: input doesn't specify knife.id\n");
+    printf("\n");
+    printf(" - 2100: t_company CREATE success\n");
+    printf(" - 2100: t_company CREATE success\n");
+    printf(" - 2110: t_company CREATE failed: input id already existed\n");
+    printf(" - 2101: t_company CREATE failed: input doesn't specify company.id\n");
+    printf(" - 2102: t_company CREATE failed: input doesn't specify company.name\n");
+    printf(" - 2200: t_company READ success\n");
+    printf(" - 2210: t_company READ failed: no records in t_company\n");
+    printf(" - 2300: t_company UPDATE success\n");
+    printf(" - 2300: t_company UPDATE success\n");
+    printf(" - 2310: t_company UPDATE failed: input id doesn't exist\n");
+    printf(" - 2301: t_company UPDATE failed: input doesn't specify company.id\n");
+    printf(" - 2302: t_company UPDATE failed: input doesn't specify company.name\n");
+    printf(" - 2400: t_company DELETE success\n");
+    printf(" - 2410: t_company DELETE failed: input id doesn't exist\n");
+    printf(" - 2420: t_company DELETE failed: constraint fail, input record is present on t_knife\n");
+    printf(" - 2401: t_company DELETE failed: input doesn't specify company.id\n");
+    printf("\n");
+    printf(" - 3100: t_maker CREATE success\n");
+    printf(" - 3100: t_maker CREATE success\n");
+    printf(" - 3110: t_maker CREATE failed: input id already existed\n");
+    printf(" - 3101: t_maker CREATE failed: input doesn't specify company.id\n");
+    printf(" - 3102: t_maker CREATE failed: input doesn't specify company.name\n");
+    printf(" - 3200: t_maker READ success\n");
+    printf(" - 3210: t_maker READ failed: no records in t_maker\n");
+    printf(" - 3300: t_maker UPDATE success\n");
+    printf(" - 3300: t_maker UPDATE success\n");
+    printf(" - 3310: t_maker UPDATE failed: input id doesn't exist\n");
+    printf(" - 3301: t_maker UPDATE failed: input doesn't specify company.id\n");
+    printf(" - 3302: t_maker UPDATE failed: input doesn't specify company.name\n");
+    printf(" - 3400: t_maker DELETE success\n");
+    printf(" - 3410: t_maker DELETE failed: input id doesn't exist\n");
+    printf(" - 3420: t_maker DELETE failed: constraint fail, input record is present on t_knife\n");
+    printf(" - 3401: t_maker DELETE failed: input doesn't specify company.id\n");
+    printf("\n");
+    printf(" - 4100: t_steel CREATE success\n");
+    printf(" - 4100: t_steel CREATE success\n");
+    printf(" - 4110: t_steel CREATE failed: input id already existed\n");
+    printf(" - 4101: t_steel CREATE failed: input doesn't specify company.id\n");
+    printf(" - 4102: t_steel CREATE failed: input doesn't specify company.name\n");
+    printf(" - 4200: t_steel READ success\n");
+    printf(" - 4210: t_steel READ failed: no records in t_steel\n");
+    printf(" - 4300: t_steel UPDATE success\n");
+    printf(" - 4300: t_steel UPDATE success\n");
+    printf(" - 4310: t_steel UPDATE failed: input id doesn't exist\n");
+    printf(" - 4301: t_steel UPDATE failed: input doesn't specify company.id\n");
+    printf(" - 4302: t_steel UPDATE failed: input doesn't specify company.name\n");
+    printf(" - 4400: t_steel DELETE success\n");
+    printf(" - 4410: t_steel DELETE failed: input id doesn't exist\n");
+    printf(" - 4420: t_steel DELETE failed: constraint fail, input record is present on t_knife\n");
+    printf(" - 4401: t_steel DELETE failed: input doesn't specify company.id\n");
+    printf("\n");
+
+
+
+    
+}
+void dbms_errorshort(){
+    printf(" Error Report Message Explanation:\n");
+    printf("\n");
+    printf(" First digit represents the table (e.g. 1XXX represents an process in table t_knife)\n");
+    printf(" Second digit represents the action (e.g. X3XX represents a updating process)\n");
+    printf(" Third digit represents database-side error, this error can vary between function\n");
+    printf(" Fourth digit represents user-side error, this error is usually an input error\n");
+    printf(" A successful process is usually indicated by a code where the last two digits are 0, (e.g. XX00)\n");
     printf("\n");
 }
 

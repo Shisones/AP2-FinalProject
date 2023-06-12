@@ -42,7 +42,9 @@ int main(){
         if (check_syntax(str) == 0){ // DBMS Control Commands
 
             if (strcmp(str, "-h") == 0 || strcmp(str, "--help") == 0) dbms_help(); // Used for -h
-            else if (strcmp(str, "-i") == 0) dbms_info(); // Used for -i
+            else if (strcmp(str, "-i") == 0) dbms_info(); // Used for -i (info)
+            else if (strcmp(str, "-e") == 0) dbms_errorshort(); // Used for -e (error)
+            else if (strcmp(str, "--err") == 0) dbms_error(); // Used for --err (error)
             else if (!(q || quit)) printf("[!] ERROR : DBMS Command \"%s\" not found!\n    use -h to list all available commands\n", str);
         }else if (check_syntax(str) == 1){ // DBMS Record Commands
             wm_start(str); // Start the word machine
@@ -73,7 +75,6 @@ int main(){
                     else if (report == 2110) printf("[%d]: Record creation failed : Record with id %s exists\n", report, wm_getcw());
                     else if (report == 2101) printf("[%d]: Record missing column 'company.id'\n", report);
                     else if (report == 2102) printf("[%d]: Record missing column 'company.name'\n", report);
-                    else if (report == 2103) printf("[%d]: Record missing column 'knife.company'\n", report);
                 }
                 else if (strcmp(wm_getcw(), "t_maker") == 0){ // If the table is t_maker
                     
@@ -83,7 +84,6 @@ int main(){
                     else if (report == 3110) printf("[%d]: Record creation failed : Record with id %s exists\n", report, wm_getcw());
                     else if (report == 3101) printf("[%d]: Record missing column 'maker.id'\n", report);
                     else if (report == 3102) printf("[%d]: Record missing column 'maker.name'\n", report);
-                    else if (report == 3103) printf("[%d]: Record missing column 'knife.maker'\n", report);
                 }
                 else if (strcmp(wm_getcw(), "t_steel") == 0){ // If the table is t_steel
                     
@@ -93,7 +93,6 @@ int main(){
                     else if (report == 4110) printf("[%d]: Record creation failed : Record with id %s exists\n", report, wm_getcw());
                     else if (report == 4101) printf("[%d]: Record missing column 'steel.id'\n", report);
                     else if (report == 4102) printf("[%d]: Record missing column 'steel.name'\n", report);
-                    else if (report == 4103) printf("[%d]: Record missing column 'knife.steel'\n", report);
                 }else printf("[!] ERROR : Table '%s' doesn't exist\n", wm_getcw());
             }
             else if (strcmp(wm_getcw(), "TAMPIL") == 0 || strcmp(wm_getcw(), "READ") == 0){ // READ Commands

@@ -58,9 +58,9 @@ int update_knifeCompany(knifeRecord data[], int n, char target[], char result[])
 int update_knifeMaker(knifeRecord data[], int n, char target[], char result[]);
 int update_knifeSteel(knifeRecord data[], int n, char target[], char result[]);
 // Delete Constraint = Restrict Deletion
-int restrict_knifeCompany(knifeRecord data[], int n, char target[], char result[]);
-int restrict_knifeMaker(knifeRecord data[], int n, char target[], char result[]);
-int restrict_knifeSteel(knifeRecord data[], int n, char target[], char result[]);
+int restrict_knifeCompany(knifeRecord data[], int n, char target[]);
+int restrict_knifeMaker(knifeRecord data[], int n, char target[]);
+int restrict_knifeSteel(knifeRecord data[], int n, char target[]);
 
 /* ----- [Imported Function Header] ----- */
 
@@ -86,6 +86,8 @@ void write_steelFile(int steelCtr, steelRecord rec[], char file[]);
 void dbms_logo(); // Shows initial logo
 void dbms_help(); // Shows help 
 void dbms_info(); // Shows database management system information
+void dbms_error(); // Shows report code and error messages
+void dbms_errorshort(); // Shows report code 
 
 /* ----- [DBMS Control] ----- */
 
