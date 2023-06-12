@@ -97,17 +97,17 @@ int knife_delete (knifeRecord knife[], char str[]);
 // Company CRUD
 int company_create (companyRecord company[], char str[]);
 int company_read (companyRecord company[], char str[]);
-int company_update (companyRecord company[], char str[]);
-int company_delete (companyRecord company[], char str[]);
+int company_update (companyRecord company[], char str[], knifeRecord knife[]);
+int company_delete (companyRecord company[], char str[], knifeRecord knife[]);
 // Maker CRUD
 int maker_create (makerRecord maker[], char str[]);
 int maker_read (makerRecord maker[], char str[]);
-int maker_update (makerRecord maker[], char str[]);
-int maker_delete (makerRecord maker[], char str[]);
+int maker_update (makerRecord maker[], char str[], knifeRecord knife[]);
+int maker_delete (makerRecord maker[], char str[], knifeRecord knife[]);
 // Steel CRUD
 int steel_create (steelRecord steel[], char str[]);
 int steel_read (steelRecord steel[], char str[]);
-int steel_update (steelRecord steel[], char str[]);
-int steel_delete (steelRecord steel[], char str[]);
+int steel_update (steelRecord steel[], char str[], knifeRecord knife[]);
+int steel_delete (steelRecord steel[], char str[], knifeRecord knife[]);
 
 /* ----- [Struct CRUD] ----- */

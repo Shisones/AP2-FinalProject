@@ -147,7 +147,7 @@ int main(){
                 }
                 else if (strcmp(wm_getcw(), "t_company") == 0){ // If the table is t_company
                     
-                    report = company_update(company, str); // Update record and get report value
+                    report = company_update(company, str, knife); // Update record and get report value
                     // Code below is self explanatory
                     if (report == 2300) printf("[%d]: Record successfully updated\n", report);
                     else if (report == 2310) printf("[%d]: Record update failed : Record with id %s doesn't exist\n", report, wm_getcw());
@@ -156,7 +156,7 @@ int main(){
                 }
                 else if (strcmp(wm_getcw(), "t_maker") == 0){ // If the table is t_maker
                     
-                    report = maker_update(maker, str); // Update record and get report value
+                    report = maker_update(maker, str, knife); // Update record and get report value
                     // Code below is self explanatory
                     if (report == 3300) printf("[%d]: Record successfully updated\n", report);
                     else if (report == 3310) printf("[%d]: Record update failed : Record with id %s doesn't exist\n", report, wm_getcw());
@@ -165,7 +165,7 @@ int main(){
                 }
                 else if (strcmp(wm_getcw(), "t_steel") == 0){ // If the table is t_steel
                     
-                    report = steel_update(steel, str); // Update record and get report value
+                    report = steel_update(steel, str, knife); // Update record and get report value
                     // Code below is self explanatory
                     if (report == 4300) printf("[%d]: Record successfully updated\n", report);
                     else if (report == 4310) printf("[%d]: Record update failed : Record with id %s doesn't exist\n", report, wm_getcw());
@@ -186,7 +186,7 @@ int main(){
                 }
                 else if (strcmp(wm_getcw(), "t_company") == 0){ // If the table is 't_company'
                     
-                    report = company_delete(company, str); // Delete Record and retrieve input
+                    report = company_delete(company, str, knife); // Delete Record and retrieve input
                     // Code below is self explanatory
                     if (report == 2400) printf("[%d]: Record successfully deleted\n", report);
                     else if (report == 2410) printf("[%d]: Record delete failed : Record with id %s doesn't exist\n", report, wm_getcw());
@@ -194,7 +194,7 @@ int main(){
                 }
                 else if (strcmp(wm_getcw(), "t_maker") == 0){ // If the table is 't_maker'
                     
-                    report = maker_delete(maker, str); // Delete Record and retrieve input
+                    report = maker_delete(maker, str, knife); // Delete Record and retrieve input
                     // Code below is self explanatory
                     if (report == 3400) printf("[%d]: Record successfully deleted\n", report);
                     else if (report == 3410) printf("[%d]: Record delete failed : Record with id %s doesn't exist\n", report, wm_getcw());
@@ -202,7 +202,7 @@ int main(){
                 }
                 else if (strcmp(wm_getcw(), "t_steel") == 0){ // If the table is 't_steel'
                     
-                    report = steel_delete(steel, str); // Delete Record and retrieve input
+                    report = steel_delete(steel, str, knife); // Delete Record and retrieve input
                     // Code below is self explanatory
                     if (report == 4400) printf("[%d]: Record successfully deleted\n", report);
                     else if (report == 4410) printf("[%d]: Record delete failed : Record with id %s doesn't exist\n", report, wm_getcw());

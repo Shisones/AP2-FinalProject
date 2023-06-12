@@ -221,7 +221,7 @@ void dbms_help(){
 }
 void dbms_logo(){
     printf("     __  ___              __                 ____   ____     \n");
-    printf("    /  |/  /____ _ _____ / /__ ____  _   __ / __ \\ / __ )    Markov DB v.0.4.1\n");
+    printf("    /  |/  /____ _ _____ / /__ ____  _   __ / __ \\ / __ )    Markov DB v.0.5\n");
     printf("   / /|_/ // __ `// ___// //_// __ \\| | / // / / // __  |    \n");
     printf("  / /  / // /_/ // /   / ,<  / /_/ /| |/ // /_/ // /_/ /     [-h] or [-help] for manual\n");
     printf(" /_/  /_/ \\__,_//_/   /_/|_| \\____/ |___//_____//_____/      [-q] or [--quit] to exit\n");
@@ -369,7 +369,7 @@ int company_read (companyRecord company[], char str[]){
     }
     return 2200; // Return 2200 (Read Success)
 }
-int company_update (companyRecord company[], char str[]){
+int company_update (companyRecord company[], char str[], knifeRecord knife[]){
     wm_next(str);
     if (wm_end(str) == 1) return 2301; // If String ends abruptly, return 2301 (ID Not Found)
     
@@ -384,7 +384,7 @@ int company_update (companyRecord company[], char str[]){
         
     return 2300; // Return 2300 (Update Success);
 }
-int company_delete (companyRecord company[], char str[]){
+int company_delete (companyRecord company[], char str[], knifeRecord knife[]){
     if (wm_end(str) == 1) return 2401; // If String ends abruptly, return 2401 (ID Not Provided)
     wm_next(str); // Point to ID
     
@@ -423,7 +423,7 @@ int maker_read (makerRecord maker[], char str[]){
     }
     return 3200; // Return 3200 (Read Success)
 }
-int maker_update (makerRecord maker[], char str[]){
+int maker_update (makerRecord maker[], char str[], knifeRecord knife[]){
     if (wm_end(str) == 1) return 3301; // If String ends abruptly, return 3301 (ID Not Provided)
     wm_next(str); // Point to ID
     
@@ -438,7 +438,7 @@ int maker_update (makerRecord maker[], char str[]){
         
     return 3300; // Return 3300 (Update Success);
 }
-int maker_delete (makerRecord maker[], char str[]){
+int maker_delete (makerRecord maker[], char str[], knifeRecord knife[]){
     if (wm_end(str) == 1) return 3401; // If String ends abruptly, return 3401 (ID Not Provided)
     wm_next(str); // Point to ID
     
@@ -477,7 +477,7 @@ int steel_read (steelRecord steel[], char str[]){
     }
     return 4200; // Return 4200 (Read Success)
 }
-int steel_update (steelRecord steel[], char str[]){
+int steel_update (steelRecord steel[], char str[], knifeRecord knife[]){
     if (wm_end(str) == 1) return 4301; // If String ends abruptly, return 4301 (ID Not Provided)
     wm_next(str); // Point to ID
     
@@ -492,7 +492,7 @@ int steel_update (steelRecord steel[], char str[]){
         
     return 4300; // Return 4300 (Update Success);
 }
-int steel_delete (steelRecord steel[], char str[]){
+int steel_delete (steelRecord steel[], char str[], knifeRecord knife[]){
     if (wm_end(str) == 1) return 4401; // If String ends abruptly, return 4401 (ID Not Provided)
     wm_next(str); // Point to ID
     
