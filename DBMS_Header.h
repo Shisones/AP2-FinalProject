@@ -20,8 +20,8 @@ extern int steelCtr; // Counter for steels
 // Knife Table
 typedef struct knifeRecord{
     char id[25];
-    char company[50];
     char name[50];
+    char company[50];
     char maker[50];
     char steel[50];
 }knifeRecord;
@@ -47,9 +47,18 @@ typedef struct steelRecord{
 
 // Searching Func
 int search_knifeID(knifeRecord data[], int n, char target[]);
+int search_knifeCompany(knifeRecord data[], int n, char target[]);
+int search_knifeMaker(knifeRecord data[], int n, char target[]);
+int search_knifeSteel(knifeRecord data[], int n, char target[]);
+
 int search_companyID(companyRecord data[], int n, char target[]);
+int search_companyName(companyRecord data[], int n, char target[]);
+
 int search_makerID(makerRecord data[], int n, char target[]);
+int search_makerName(makerRecord data[], int n, char target[]);
+
 int search_steelID(steelRecord data[], int n, char target[]);
+int search_steelName(steelRecord data[], int n, char target[]);
 
 /* ----- [Imported Function Header] ----- */
 
@@ -81,9 +90,9 @@ void dbms_info(); // Shows database management system information
 /* ----- [Struct CRUD] ----- */
 
 // Knife CRUD
-int knife_create (knifeRecord knife[], char str[]);
+int knife_create (knifeRecord knife[], char str[], companyRecord company[], makerRecord maker[], steelRecord steel[]);
 int knife_read (knifeRecord knife[], char str[]);
-int knife_update (knifeRecord knife[], char str[]);
+int knife_update (knifeRecord knife[], char str[], companyRecord company[], makerRecord maker[], steelRecord steel[]);
 int knife_delete (knifeRecord knife[], char str[]);
 // Company CRUD
 int company_create (companyRecord company[], char str[]);

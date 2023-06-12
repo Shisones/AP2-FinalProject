@@ -33,6 +33,14 @@ int search_companyID(companyRecord data[], int n, char target[]) {
     }
     return -1; // Return -1 if the element is not found
 }
+int search_companyName(companyRecord data[], int n, char target[]) {
+    for (int i = 0; i < n; i++) {
+        if (strcmp(data[i].name, target) == 0) {
+            return i; // Return the index of the found element
+        }
+    }
+    return -1; // Return -1 if the element is not found
+}
 int search_makerID(makerRecord data[], int n, char target[]) {
     for (int i = 0; i < n; i++) {
         if (strcmp(data[i].id, target) == 0) {
@@ -41,9 +49,25 @@ int search_makerID(makerRecord data[], int n, char target[]) {
     }
     return -1; // Return -1 if the element is not found
 }
+int search_makerName(makerRecord data[], int n, char target[]) {
+    for (int i = 0; i < n; i++) {
+        if (strcmp(data[i].name, target) == 0) {
+            return i; // Return the index of the found element
+        }
+    }
+    return -1; // Return -1 if the element is not found
+}
 int search_steelID(steelRecord data[], int n, char target[]) {
     for (int i = 0; i < n; i++) {
         if (strcmp(data[i].id, target) == 0) {
+            return i; // Return the index of the found element
+        }
+    }
+    return -1; // Return -1 if the element is not found
+}
+int search_steelName(steelRecord data[], int n, char target[]) {
+    for (int i = 0; i < n; i++) {
+        if (strcmp(data[i].name, target) == 0) {
             return i; // Return the index of the found element
         }
     }
@@ -60,14 +84,14 @@ void read_knifeFile(int *idx, knifeRecord rec[], char file[]){
     file_knife = fopen(file, "r"); // Use read function on the file
 
     // Scan the first record of R_Knife
-    fscanf(file_knife, "%s %s %s %s %s", rec[*idx].id, rec[*idx].company, rec[*idx].name, rec[*idx].maker, rec[*idx].steel);
+    fscanf(file_knife, "%s %s %s %s %s", rec[*idx].id, rec[*idx].name,  rec[*idx].company,rec[*idx].maker, rec[*idx].steel);
 
     // If the first record is null, tell the user
     if (strcmp(rec[*idx].id, "#####") == 0) printf("File Kosong!\n");
     else{ // Otherwise, read the records until null is met
         while (strcmp(rec[*idx].id, "#####") != 0){
             *idx = *idx + 1; 
-            fscanf(file_knife, "%s %s %s %s %s", rec[*idx].id, rec[*idx].company, rec[*idx].name, rec[*idx].maker, rec[*idx].steel);
+            fscanf(file_knife, "%s %s %s %s %s", rec[*idx].id, rec[*idx].name,  rec[*idx].company,rec[*idx].maker, rec[*idx].steel);
         }
     }
     knifeCtr = *idx;
@@ -78,7 +102,7 @@ void write_knifeFile(int knifeCtr, knifeRecord rec[], char file[]){
     file_knife = fopen(file, "w"); // Specify the pointer, and use the write mode
     // Loops through each laptop record
     for (int iK = 0; iK < knifeCtr; iK++){ // Inputs each rec of the knife record into the file
-        fprintf(file_knife, "%s %s %s %s %s\n", rec[iK].id, rec[iK].company, rec[iK].name, rec[iK].maker, rec[iK].steel);
+        fprintf(file_knife, "%s %s %s %s %s\n", rec[iK].id, rec[iK].name,  rec[iK].company,rec[iK].maker, rec[iK].steel);
     }
     fprintf(file_knife, "##### ##### ##### #####"); // Termination record
     fclose(file_knife);
@@ -231,8 +255,9 @@ void dbms_info(){
 /* ----- [Struct CRUD] ----- */
 
 // Knife Table CRUD
-int knife_create (knifeRecord knife[], char str[]){
+int knife_create (knifeRecord knife[], char str[], companyRecord company[], makerRecord maker[], steelRecord steel[]){
     if (wm_end(str) == 1) return 1101; // If String ends abruptly, return 1101 (ID Not Provided)
+    wm_next(str); // Point to ID
 
     // Look for same id, if found, immediately return a 1110 (Record Already Exist)
     int found = search_knifeID(knife, knifeCtr, wm_getcw());
@@ -240,17 +265,27 @@ int knife_create (knifeRecord knife[], char str[]){
     // Copy ID
     if (wm_end(str) == 1) return 1102; // If String ends abruptly, return 1102 (Name Not Provided)
         strcpy(knife[knifeCtr].id, wm_getcw());
+
     wm_next(str); // Copy Name
     if (wm_end(str) == 1) return 1103; // If String ends abruptly, return 1103 (Company Not Provided)
         strcpy(knife[knifeCtr].name, wm_getcw());
+
     wm_next(str); // Copy Company
     if (wm_end(str) == 1) return 1104; // If String ends abruptly, return 1104 (Maker Not Provided)
-        strcpy(knife[knifeCtr].company, wm_getcw());
+    int cf = search_companyName(company, companyCtr, wm_getcw());
+    if (cf >= 0) strcpy(knife[knifeCtr].company, wm_getcw());
+    else return 1130; // If yompany doesn't exist, return 1130 (company doesn't exist)
+
     wm_next(str); // Copy Maker
     if (wm_end(str) == 1) return 1105; // If String ends abruptly, return 1105 (Steel Not Provided)
-        strcpy(knife[knifeCtr].maker, wm_getcw());
+    int mf = search_makerName(maker, makerCtr, wm_getcw());
+    if (mf >= 0) strcpy(knife[knifeCtr].maker, wm_getcw());
+    else return 1140; // If maker doesn't exist, return 1140 (maker doesn't exist)
+
     wm_next(str); // Copy Steel
-        strcpy(knife[knifeCtr].steel, wm_getcw());
+    int sf = search_steelName(steel, steelCtr, wm_getcw());
+    if (sf >= 0) strcpy(knife[knifeCtr].steel, wm_getcw());
+    else return 1150; // If steel doesn't exist, return 1150 (steel doesn't exist)
         
     knifeCtr++; // Increment knife record
     return 1100; // Return 1100 (Insert Success);
@@ -262,8 +297,9 @@ int knife_read (knifeRecord knife[], char str[]){
     }
     return 1200; // Return 1200 (Read Success)
 }
-int knife_update (knifeRecord knife[], char str[]){
-    if (wm_end(str) == 1) return 1301; // If String ends abruptly, return 1301 (ID Not Found)
+int knife_update (knifeRecord knife[], char str[], companyRecord company[], makerRecord maker[], steelRecord steel[]){
+    if (wm_end(str) == 1) return 1301; // If String ends abruptly, return 1301 (ID Not Provided)
+    wm_next(str); // Point to ID
     
     // Look for same id, if not found, immediately return a 1310 (Record Not Found)
     int found = search_knifeID(knife, knifeCtr, wm_getcw());
@@ -271,22 +307,34 @@ int knife_update (knifeRecord knife[], char str[]){
     // Copy ID
     if (wm_end(str) == 1) return 1302; // If String ends abruptly, return 1302 (Name Not Found)
         strcpy(knife[found].id, wm_getcw());
+
     wm_next(str); // Copy Name
     if (wm_end(str) == 1) return 1303; // If String ends abruptly, return 1303 (Company Not Found)
         strcpy(knife[found].name, wm_getcw());
+
     wm_next(str); // Copy Company
     if (wm_end(str) == 1) return 1304; // If String ends abruptly, return 1304 (Maker Not Found)
-        strcpy(knife[found].company, wm_getcw());
+    int cf = search_companyName(company, companyCtr, wm_getcw());
+    if (cf >= 0) strcpy(knife[knifeCtr].company, wm_getcw());
+    else return 1330; // If yompany doesn't exist, return 1330 (company doesn't exist)
+
     wm_next(str); // Copy Maker
     if (wm_end(str) == 1) return 1305; // If String ends abruptly, return 1305 (Steel Not Found)
-        strcpy(knife[found].maker, wm_getcw());
+    int mf = search_makerName(maker, makerCtr, wm_getcw());
+    if (mf >= 0) strcpy(knife[knifeCtr].maker, wm_getcw());
+    else return 1340; // If yompany doesn't exist, return 1340 (maker doesn't exist)  
+
     wm_next(str); // Copy Steel
-        strcpy(knife[found].steel, wm_getcw());
+    int sf = search_steelName(steel, steelCtr, wm_getcw());
+    if (sf >= 0) strcpy(knife[knifeCtr].steel, wm_getcw());
+    else return 1350; // If yompany doesn't exist, return 1330 (steel doesn't exist)   
         
     return 1300; // Return 1300 (Update Success);
 }
 int knife_delete (knifeRecord knife[], char str[]){
-
+    if (wm_end(str) == 1) return 1401; // If String ends abruptly, return 1401 (ID Not Provided)
+    wm_next(str); // Point to ID
+    
     // Look for same id, if not found, immediately return 1410 (Record Not Found)
     int found = search_knifeID(knife, knifeCtr, wm_getcw());
     if (found == -1) return 1410;
@@ -300,6 +348,7 @@ int knife_delete (knifeRecord knife[], char str[]){
 // Company Table CRUD
 int company_create(companyRecord company[], char str[]){
     if (wm_end(str) == 1) return 2101; // If String ends abruptly, return 2101 (ID Not Provided)
+    wm_next(str); // Point to ID
     
     // Look for same id, if found, immediately return a 2110 (Record Already Exist)
     int found = search_companyID(company, companyCtr, wm_getcw());
@@ -321,6 +370,7 @@ int company_read (companyRecord company[], char str[]){
     return 2200; // Return 2200 (Read Success)
 }
 int company_update (companyRecord company[], char str[]){
+    wm_next(str);
     if (wm_end(str) == 1) return 2301; // If String ends abruptly, return 2301 (ID Not Found)
     
     // Look for same id, if not found, immediately return a 2310 (Record Not Found)
@@ -335,7 +385,9 @@ int company_update (companyRecord company[], char str[]){
     return 2300; // Return 2300 (Update Success);
 }
 int company_delete (companyRecord company[], char str[]){
-
+    if (wm_end(str) == 1) return 2401; // If String ends abruptly, return 2401 (ID Not Provided)
+    wm_next(str); // Point to ID
+    
     // Look for same id, if not found, immediately return 2410 (Record Not Found)
     int found = search_companyID(company, companyCtr, wm_getcw());
     if (found == -1) return 2410;
@@ -350,6 +402,7 @@ int company_delete (companyRecord company[], char str[]){
 // Maker Table CRUD
 int maker_create(makerRecord maker[], char str[]){
     if (wm_end(str) == 1) return 3101; // If String ends abruptly, return 3101 (ID Not Provided)
+    wm_next(str); // Point to ID
     
     // Look for same id, if found, immediately return a 2110 (Record Already Exist)
     int found = search_makerID(maker, makerCtr, wm_getcw());
@@ -371,7 +424,8 @@ int maker_read (makerRecord maker[], char str[]){
     return 3200; // Return 3200 (Read Success)
 }
 int maker_update (makerRecord maker[], char str[]){
-    if (wm_end(str) == 1) return 3301; // If String ends abruptly, return 3301 (ID Not Found)
+    if (wm_end(str) == 1) return 3301; // If String ends abruptly, return 3301 (ID Not Provided)
+    wm_next(str); // Point to ID
     
     // Look for same id, if not found, immediately return a 2310 (Record Not Found)
     int found = search_makerID(maker, makerCtr, wm_getcw());
@@ -385,7 +439,9 @@ int maker_update (makerRecord maker[], char str[]){
     return 3300; // Return 3300 (Update Success);
 }
 int maker_delete (makerRecord maker[], char str[]){
-
+    if (wm_end(str) == 1) return 3401; // If String ends abruptly, return 3401 (ID Not Provided)
+    wm_next(str); // Point to ID
+    
     // Look for same id, if not found, immediately return 3410 (Record Not Found)
     int found = search_makerID(maker, makerCtr, wm_getcw());
     if (found == -1) return 3410;
@@ -400,6 +456,7 @@ int maker_delete (makerRecord maker[], char str[]){
 // Steel Table CRUD
 int steel_create(steelRecord steel[], char str[]){
     if (wm_end(str) == 1) return 4101; // If String ends abruptly, return 4101 (ID Not Provided)
+    wm_next(str); // Point to ID
     
     // Look for same id, if found, immediately return a 2110 (Record Already Exist)
     int found = search_steelID(steel, steelCtr, wm_getcw());
@@ -421,7 +478,8 @@ int steel_read (steelRecord steel[], char str[]){
     return 4200; // Return 4200 (Read Success)
 }
 int steel_update (steelRecord steel[], char str[]){
-    if (wm_end(str) == 1) return 4301; // If String ends abruptly, return 4301 (ID Not Found)
+    if (wm_end(str) == 1) return 4301; // If String ends abruptly, return 4301 (ID Not Provided)
+    wm_next(str); // Point to ID
     
     // Look for same id, if not found, immediately return a 2310 (Record Not Found)
     int found = search_steelID(steel, steelCtr, wm_getcw());
@@ -435,7 +493,9 @@ int steel_update (steelRecord steel[], char str[]){
     return 4300; // Return 4300 (Update Success);
 }
 int steel_delete (steelRecord steel[], char str[]){
-
+    if (wm_end(str) == 1) return 4401; // If String ends abruptly, return 4401 (ID Not Provided)
+    wm_next(str); // Point to ID
+    
     // Look for same id, if not found, immediately return 4410 (Record Not Found)
     int found = search_steelID(steel, steelCtr, wm_getcw());
     if (found == -1) return 4410;

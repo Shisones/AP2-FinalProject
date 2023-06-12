@@ -51,8 +51,8 @@ int main(){
                 wm_next(str); // Increment to [table]
 
                 if (strcmp(wm_getcw(), "t_knife") == 0){ // If the table is t_knife
-                    wm_next(str); // Increment to [values]
-                    report = knife_create(knife, str); // Insert record and get report value
+
+                    report = knife_create(knife, str, company, maker, steel); // Insert record and get report value
                     // Code below is self explanatory
                     if (report == 1100) printf("[%d]: Record successfully created\n", report);
                     else if (report == 1110) printf("[%d]: Record creation failed : Record with id %s exists\n", report, wm_getcw());
@@ -61,9 +61,12 @@ int main(){
                     else if (report == 1103) printf("[%d]: Input is missing column 'knife.company'\n", report);
                     else if (report == 1104) printf("[%d]: Input is missing column 'knife.maker'\n", report);
                     else if (report == 1105) printf("[%d]: Input is missing column 'knife.steel'\n", report);
+                    else if (report == 1130) printf("[%d]: Company '%s' Doesn't exist in t_company\n        Please add the company beforehand\n", report, wm_getcw());
+                    else if (report == 1140) printf("[%d]: Maker '%s' Doesn't exist in t_maker\n        Please add the maker beforehand\n", report, wm_getcw());
+                    else if (report == 1150) printf("[%d]: Steel '%s' Doesn't exist in t_steel\n        Please add the steel beforehand\n", report, wm_getcw());
                 }
                 else if (strcmp(wm_getcw(), "t_company") == 0){ // If the table is t_company
-                    wm_next(str); // Increment to [values]
+
                     report = company_create(company, str); // Insert record and get report value
                     // Code below is self explanatory
                     if (report == 2100) printf("[%d]: Record successfully created\n", report);
@@ -73,7 +76,7 @@ int main(){
                     else if (report == 2103) printf("[%d]: Record missing column 'knife.company'\n", report);
                 }
                 else if (strcmp(wm_getcw(), "t_maker") == 0){ // If the table is t_maker
-                    wm_next(str); // Increment to [values]
+                    
                     report = maker_create(maker, str); // Insert record and get report value
                     // Code below is self explanatory
                     if (report == 3100) printf("[%d]: Record successfully created\n", report);
@@ -83,7 +86,7 @@ int main(){
                     else if (report == 3103) printf("[%d]: Record missing column 'knife.maker'\n", report);
                 }
                 else if (strcmp(wm_getcw(), "t_steel") == 0){ // If the table is t_steel
-                    wm_next(str); // Increment to [values]
+                    
                     report = steel_create(steel, str); // Insert record and get report value
                     // Code below is self explanatory
                     if (report == 4100) printf("[%d]: Record successfully created\n", report);
@@ -95,26 +98,29 @@ int main(){
             }
             else if (strcmp(wm_getcw(), "TAMPIL") == 0 || strcmp(wm_getcw(), "READ") == 0){ // READ Commands
                 wm_next(str); // Increment to [table]
-
                 if (strcmp(wm_getcw(), "t_knife") == 0){ // If the table is t_knife
+                    
                     report = knife_read(knife, str); // Read the table and provide report
                     // Code below is self explanatory
                     if (report == 1200) printf("[%d]: %d Record shown\n", report, knifeCtr);
                     if (report == 1210) printf("[%d]: Table 't_knife' is empty\n", report);
                 }
                 else if (strcmp(wm_getcw(), "t_company") == 0){ // If the table is t_company
+                    
                     report = company_read(company, str); // Read the table and provide report
                     // Code below is self explanatory
                     if (report == 2200) printf("[%d]: %d Record shown\n", report, companyCtr);
                     if (report == 2210) printf("[%d]: Table 't_company' is empty\n", report);
                 }
                 else if (strcmp(wm_getcw(), "t_maker") == 0){ // If the table is t_maker
+                    
                     report = maker_read(maker, str); // Read the table and provide report
                     // Code below is self explanatory
                     if (report == 3200) printf("[%d]: %d Record shown\n", report, makerCtr);
                     if (report == 3210) printf("[%d]: Table 't_maker' is empty\n", report);
                 }
                 else if (strcmp(wm_getcw(), "t_steel") == 0){ // If the table is t_steel
+                    
                     report = steel_read(steel, str); // Read the table and provide report
                     // Code below is self explanatory
                     if (report == 4200) printf("[%d]: %d Record shown\n", report, steelCtr);
@@ -125,8 +131,8 @@ int main(){
                 wm_next(str); // Increment to [table]
 
                 if (strcmp(wm_getcw(), "t_knife") == 0){ // If the table is t_knife
-                    wm_next(str); // Increment to [values]
-                    report = knife_update(knife, str); // Update record and get report value
+                    
+                    report = knife_update(knife, str, company, maker, steel); // Update record and get report value
                     // Code below is self explanatory
                     if (report == 1300) printf("[%d]: Record successfully updated\n", report);
                     else if (report == 1310) printf("[%d]: Record update failed : Record with id %s doesn't exist\n", report, wm_getcw());
@@ -135,9 +141,12 @@ int main(){
                     else if (report == 1303) printf("[%d]: Input is missing column 'knife.company'\n", report);
                     else if (report == 1304) printf("[%d]: Input is missing column 'knife.maker'\n", report);
                     else if (report == 1305) printf("[%d]: Input is missing column 'knife.steel'\n", report);
+                    else if (report == 1330) printf("[%d]: Company '%s' Doesn't exist in t_company\n        Please add the company beforehand\n", report, wm_getcw());
+                    else if (report == 1340) printf("[%d]: Maker '%s' Doesn't exist in t_maker\n        Please add the maker beforehand\n", report, wm_getcw());
+                    else if (report == 1350) printf("[%d]: Steel '%s' Doesn't exist in t_steel\n        Please add the steel beforehand\n", report, wm_getcw());
                 }
                 else if (strcmp(wm_getcw(), "t_company") == 0){ // If the table is t_company
-                    wm_next(str); // Increment to [values]
+                    
                     report = company_update(company, str); // Update record and get report value
                     // Code below is self explanatory
                     if (report == 2300) printf("[%d]: Record successfully updated\n", report);
@@ -146,7 +155,7 @@ int main(){
                     else if (report == 2302) printf("[%d]: Input is missing column 'company.name'\n", report);
                 }
                 else if (strcmp(wm_getcw(), "t_maker") == 0){ // If the table is t_maker
-                    wm_next(str); // Increment to [values]
+                    
                     report = maker_update(maker, str); // Update record and get report value
                     // Code below is self explanatory
                     if (report == 3300) printf("[%d]: Record successfully updated\n", report);
@@ -155,7 +164,7 @@ int main(){
                     else if (report == 3302) printf("[%d]: Input is missing column 'maker.name'\n", report);
                 }
                 else if (strcmp(wm_getcw(), "t_steel") == 0){ // If the table is t_steel
-                    wm_next(str); // Increment to [values]
+                    
                     report = steel_update(steel, str); // Update record and get report value
                     // Code below is self explanatory
                     if (report == 4300) printf("[%d]: Record successfully updated\n", report);
@@ -168,7 +177,7 @@ int main(){
                 wm_next(str); // Increment to [table]
 
                 if (strcmp(wm_getcw(), "t_knife") == 0){ // If the table is 't_knife'
-                    wm_next(str); // Increment to [values]
+                    
                     report = knife_delete(knife, str); // Delete Record and retrieve input
                     // Code below is self explanatory
                     if (report == 1400) printf("[%d]: Record successfully deleted\n", report);
@@ -176,7 +185,7 @@ int main(){
                     else if (report == 1401) printf("[%d]: Input is missing column 'knife.id'\n", report);
                 }
                 else if (strcmp(wm_getcw(), "t_company") == 0){ // If the table is 't_company'
-                    wm_next(str); // Increment to [values]
+                    
                     report = company_delete(company, str); // Delete Record and retrieve input
                     // Code below is self explanatory
                     if (report == 2400) printf("[%d]: Record successfully deleted\n", report);
@@ -184,7 +193,7 @@ int main(){
                     else if (report == 2401) printf("[%d]: Input is missing column 'company.id'\n", report);
                 }
                 else if (strcmp(wm_getcw(), "t_maker") == 0){ // If the table is 't_maker'
-                    wm_next(str); // Increment to [values]
+                    
                     report = maker_delete(maker, str); // Delete Record and retrieve input
                     // Code below is self explanatory
                     if (report == 3400) printf("[%d]: Record successfully deleted\n", report);
@@ -192,7 +201,7 @@ int main(){
                     else if (report == 3401) printf("[%d]: Input is missing column 'maker.id'\n", report);
                 }
                 else if (strcmp(wm_getcw(), "t_steel") == 0){ // If the table is 't_steel'
-                    wm_next(str); // Increment to [values]
+                    
                     report = steel_delete(steel, str); // Delete Record and retrieve input
                     // Code below is self explanatory
                     if (report == 4400) printf("[%d]: Record successfully deleted\n", report);
