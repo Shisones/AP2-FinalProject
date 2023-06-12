@@ -270,9 +270,9 @@ void dbms_help(){
     printf(" Database Usage : [command] [table] [value1] [value2];\n");
     printf("\n");
     printf(" Command :\n");
-    printf(" BUAT, CREATE         Create a new record, values must be filled for all columns\n");
-    printf(" BACA, READ           Read a table of record\n");
-    printf(" PERBARUI, UPDATE     Update an existing record (based on the id/first input)\n");
+    printf(" ISI, CREATE         Create a new record, values must be filled for all columns\n");
+    printf(" TAMPIL, READ           Read a table of record\n");
+    printf(" UBAH, UPDATE     Update an existing record (based on the id/first input)\n");
     printf(" HAPUS, DELETE        Delete an existing record (based on the id/first input)\n");
     printf("\n");
 }
