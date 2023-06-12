@@ -74,6 +74,63 @@ int search_steelName(steelRecord data[], int n, char target[]) {
     return -1; // Return -1 if the element is not found
 }
 
+// Update Constraint
+int update_knifeCompany(knifeRecord data[], int n, char target[], char result[]) {
+    int changed = 0;
+    for (int i = 0; i < n; i++) { // Overwrite each and every one of the same name as target
+        if (strcmp(data[i].company, target) == 0) {
+            strcpy(data[i].company, result); // Overwrite target with result
+            changed++;
+        }
+    }
+    return changed; // Return the total number of changed record
+}
+int update_knifeMaker(knifeRecord data[], int n, char target[], char result[]) {
+    int changed = 0;
+    for (int i = 0; i < n; i++) { // Overwrite each and every one of the same name as target
+        if (strcmp(data[i].maker, target) == 0) {
+            strcpy(data[i].maker, result); // Overwrite target with result
+            changed++;
+        }
+    }
+    return changed; // Return the total number of changed record
+}
+int update_knifeSteel(knifeRecord data[], int n, char target[], char result[]) {
+    int changed = 0;
+    for (int i = 0; i < n; i++) { // Overwrite each and every one of the same name as target
+        if (strcmp(data[i].steel, target) == 0) {
+            strcpy(data[i].steel, result); // Overwrite target with result
+            changed++;
+        }
+    }
+    return changed; // Return the total number of changed record
+}
+// Delete Constraint
+int restrict_knifeCompany(knifeRecord data[], int n, char target[]) {
+    int i; // Check if knife.company has matching records
+    while (i < knifeCtr){
+        if (strcmp(data[i].company, target) == 0) return 1;
+        i++;
+    }
+    return 0; // Return the total number of found record
+}
+int restrict_knifeMaker(knifeRecord data[], int n, char target[]) {
+    int i; // Check if knife.maker has matching records
+    while (i < knifeCtr){
+        if (strcmp(data[i].maker, target) == 0) return 1;
+        i++;
+    }
+    return 0; // Return the total number of found record
+}
+int restrict_knifeSteel(knifeRecord data[], int n, char target[]) {
+    int i; // Check if knife.steel has matching records
+    while (i < knifeCtr){
+        if (strcmp(data[i].steel, target) == 0) return 1;
+        i++;
+    }
+    return 0; // Return the total number of found record
+}
+
 /* ----- [Imported Functions] ----- */
 
 /* ----- [File CRUD] ----- */
@@ -221,7 +278,7 @@ void dbms_help(){
 }
 void dbms_logo(){
     printf("     __  ___              __                 ____   ____     \n");
-    printf("    /  |/  /____ _ _____ / /__ ____  _   __ / __ \\ / __ )    Markov DB v.0.5\n");
+    printf("    /  |/  /____ _ _____ / /__ ____  _   __ / __ \\ / __ )    Markov DB v.1.0\n");
     printf("   / /|_/ // __ `// ___// //_// __ \\| | / // / / // __  |    \n");
     printf("  / /  / // /_/ // /   / ,<  / /_/ /| |/ // /_/ // /_/ /     [-h] or [-help] for manual\n");
     printf(" /_/  /_/ \\__,_//_/   /_/|_| \\____/ |___//_____//_____/      [-q] or [--quit] to exit\n");
@@ -370,18 +427,22 @@ int company_read (companyRecord company[], char str[]){
     return 2200; // Return 2200 (Read Success)
 }
 int company_update (companyRecord company[], char str[], knifeRecord knife[]){
-    wm_next(str);
     if (wm_end(str) == 1) return 2301; // If String ends abruptly, return 2301 (ID Not Found)
-    
+    wm_next(str);
     // Look for same id, if not found, immediately return a 2310 (Record Not Found)
     int found = search_companyID(company, companyCtr, wm_getcw());
-    if (found == -1) return 2310;
-    // Copy ID
+    char before[50]; // Placeholder for the company name before changes
+    if (found == -1) return 2310; // Return not found
+    else strcpy(before, company[found].name); // Otherwise, fill 'before'
+
     if (wm_end(str) == 1) return 2302; // If String ends abruptly, return 2302 (Name Not Found)
-        strcpy(company[found].id, wm_getcw());
+    
+    int changed = 0;
     wm_next(str); // Copy Name
         strcpy(company[found].name, wm_getcw());
-        
+    changed = update_knifeCompany(knife, knifeCtr, before, wm_getcw());
+    
+    if (changed > 0) return changed;
     return 2300; // Return 2300 (Update Success);
 }
 int company_delete (companyRecord company[], char str[], knifeRecord knife[]){
@@ -390,14 +451,19 @@ int company_delete (companyRecord company[], char str[], knifeRecord knife[]){
     
     // Look for same id, if not found, immediately return 2410 (Record Not Found)
     int found = search_companyID(company, companyCtr, wm_getcw());
+    char check[50]; // Placeholder for the company name
     if (found == -1) return 2410;
+    else strcpy(check, company[found].name); // Otherwise, fill 'check'
+
+    // If company is present in 't_knife', restrict delete
+    if (restrict_knifeCompany(knife, knifeCtr, check) == 1) return 2420;
+
     // Push the record out and terminate the last record
     for (int i = found; i < companyCtr; i++){
         company[i] = company[i+1];
     }
     companyCtr--; // Decrement total record
     return 2400; // Return 2400 (Delete Success)
-    
 }
 // Maker Table CRUD
 int maker_create(makerRecord maker[], char str[]){
@@ -424,18 +490,22 @@ int maker_read (makerRecord maker[], char str[]){
     return 3200; // Return 3200 (Read Success)
 }
 int maker_update (makerRecord maker[], char str[], knifeRecord knife[]){
-    if (wm_end(str) == 1) return 3301; // If String ends abruptly, return 3301 (ID Not Provided)
-    wm_next(str); // Point to ID
-    
-    // Look for same id, if not found, immediately return a 2310 (Record Not Found)
+    if (wm_end(str) == 1) return 3301; // If String ends abruptly, return 3301 (ID Not Found)
+    wm_next(str);
+    // Look for same id, if not found, immediately return a 3310 (Record Not Found)
     int found = search_makerID(maker, makerCtr, wm_getcw());
-    if (found == -1) return 3310;
-    // Copy ID
+    char before[50]; // Placeholder for the maker name before changes
+    if (found == -1) return 3310; // Return not found
+    else strcpy(before, maker[found].name); // Otherwise, fill 'before'
+
     if (wm_end(str) == 1) return 3302; // If String ends abruptly, return 3302 (Name Not Found)
-        strcpy(maker[found].id, wm_getcw());
+    
+    int changed = 0;
     wm_next(str); // Copy Name
         strcpy(maker[found].name, wm_getcw());
-        
+    changed = update_knifeMaker(knife, knifeCtr, before, wm_getcw());
+    
+    if (changed > 0) return changed;
     return 3300; // Return 3300 (Update Success);
 }
 int maker_delete (makerRecord maker[], char str[], knifeRecord knife[]){
@@ -444,14 +514,19 @@ int maker_delete (makerRecord maker[], char str[], knifeRecord knife[]){
     
     // Look for same id, if not found, immediately return 3410 (Record Not Found)
     int found = search_makerID(maker, makerCtr, wm_getcw());
+    char check[50]; // Placeholder for the maker name
     if (found == -1) return 3410;
+    else strcpy(check, maker[found].name); // Otherwise, fill 'check'
+
+    // If maker is present in 't_knife', restrict delete
+    if (restrict_knifeMaker(knife, knifeCtr, check) == 1) return 3420;
+
     // Push the record out and terminate the last record
     for (int i = found; i < makerCtr; i++){
         maker[i] = maker[i+1];
     }
     makerCtr--; // Decrement total record
     return 3400; // Return 3400 (Delete Success)
-    
 }
 // Steel Table CRUD
 int steel_create(steelRecord steel[], char str[]){
@@ -478,18 +553,22 @@ int steel_read (steelRecord steel[], char str[]){
     return 4200; // Return 4200 (Read Success)
 }
 int steel_update (steelRecord steel[], char str[], knifeRecord knife[]){
-    if (wm_end(str) == 1) return 4301; // If String ends abruptly, return 4301 (ID Not Provided)
-    wm_next(str); // Point to ID
-    
-    // Look for same id, if not found, immediately return a 2310 (Record Not Found)
+    if (wm_end(str) == 1) return 4301; // If String ends abruptly, return 4301 (ID Not Found)
+    wm_next(str);
+    // Look for same id, if not found, immediately return a 4310 (Record Not Found)
     int found = search_steelID(steel, steelCtr, wm_getcw());
-    if (found == -1) return 4310;
-    // Copy ID
+    char before[50]; // Placeholder for the steel name before changes
+    if (found == -1) return 4310; // Return not found
+    else strcpy(before, steel[found].name); // Otherwise, fill 'before'
+
     if (wm_end(str) == 1) return 4302; // If String ends abruptly, return 4302 (Name Not Found)
-        strcpy(steel[found].id, wm_getcw());
+    
+    int changed = 0;
     wm_next(str); // Copy Name
         strcpy(steel[found].name, wm_getcw());
-        
+    changed = update_knifeSteel(knife, knifeCtr, before, wm_getcw());
+    
+    if (changed > 0) return changed;
     return 4300; // Return 4300 (Update Success);
 }
 int steel_delete (steelRecord steel[], char str[], knifeRecord knife[]){
@@ -498,14 +577,19 @@ int steel_delete (steelRecord steel[], char str[], knifeRecord knife[]){
     
     // Look for same id, if not found, immediately return 4410 (Record Not Found)
     int found = search_steelID(steel, steelCtr, wm_getcw());
+    char check[50]; // Placeholder for the steel name
     if (found == -1) return 4410;
+    else strcpy(check, steel[found].name); // Otherwise, fill 'check'
+
+    // If steel is present in 't_knife', restrict delete
+    if (restrict_knifeSteel(knife, knifeCtr, check) == 1) return 4420;
+
     // Push the record out and terminate the last record
     for (int i = found; i < steelCtr; i++){
         steel[i] = steel[i+1];
     }
     steelCtr--; // Decrement total record
     return 4400; // Return 4400 (Delete Success)
-    
 }
 
 /* ----- [Struct CRUD] ----- */

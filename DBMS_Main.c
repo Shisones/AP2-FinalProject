@@ -150,6 +150,7 @@ int main(){
                     report = company_update(company, str, knife); // Update record and get report value
                     // Code below is self explanatory
                     if (report == 2300) printf("[%d]: Record successfully updated\n", report);
+                    else if (report <= knifeCtr) printf("[2300]: Record successfully updated\n        %d records also updated in 't_knife'\n", report);
                     else if (report == 2310) printf("[%d]: Record update failed : Record with id %s doesn't exist\n", report, wm_getcw());
                     else if (report == 2301) printf("[%d]: Input is missing column 'company.id'\n", report);
                     else if (report == 2302) printf("[%d]: Input is missing column 'company.name'\n", report);
@@ -159,6 +160,7 @@ int main(){
                     report = maker_update(maker, str, knife); // Update record and get report value
                     // Code below is self explanatory
                     if (report == 3300) printf("[%d]: Record successfully updated\n", report);
+                    else if (report <= knifeCtr) printf("[3300]: Record successfully updated\n        %d records also updated in 't_knife'\n", report);
                     else if (report == 3310) printf("[%d]: Record update failed : Record with id %s doesn't exist\n", report, wm_getcw());
                     else if (report == 3301) printf("[%d]: Input is missing column 'maker.id'\n", report);
                     else if (report == 3302) printf("[%d]: Input is missing column 'maker.name'\n", report);
@@ -168,6 +170,7 @@ int main(){
                     report = steel_update(steel, str, knife); // Update record and get report value
                     // Code below is self explanatory
                     if (report == 4300) printf("[%d]: Record successfully updated\n", report);
+                    else if (report <= knifeCtr) printf("[4300]: Record successfully updated\n        %d records also updated in 't_knife'\n", report);
                     else if (report == 4310) printf("[%d]: Record update failed : Record with id %s doesn't exist\n", report, wm_getcw());
                     else if (report == 4301) printf("[%d]: Input is missing column 'steel.id'\n", report);
                     else if (report == 4302) printf("[%d]: Input is missing column 'steel.name'\n", report);
@@ -190,6 +193,7 @@ int main(){
                     // Code below is self explanatory
                     if (report == 2400) printf("[%d]: Record successfully deleted\n", report);
                     else if (report == 2410) printf("[%d]: Record delete failed : Record with id %s doesn't exist\n", report, wm_getcw());
+                    else if (report == 2420) printf("[%d]: Constraint Failed: Record exists in 't_knife'\n        Please delete the linked record in 't_knife' before deleting this record\n", report);
                     else if (report == 2401) printf("[%d]: Input is missing column 'company.id'\n", report);
                 }
                 else if (strcmp(wm_getcw(), "t_maker") == 0){ // If the table is 't_maker'
@@ -198,6 +202,7 @@ int main(){
                     // Code below is self explanatory
                     if (report == 3400) printf("[%d]: Record successfully deleted\n", report);
                     else if (report == 3410) printf("[%d]: Record delete failed : Record with id %s doesn't exist\n", report, wm_getcw());
+                    else if (report == 3420) printf("[%d]: Constraint Failed: Record exists in 't_knife'\n        Please delete the linked record in 't_knife' before deleting this record\n", report);
                     else if (report == 3401) printf("[%d]: Input is missing column 'maker.id'\n", report);
                 }
                 else if (strcmp(wm_getcw(), "t_steel") == 0){ // If the table is 't_steel'
@@ -206,6 +211,7 @@ int main(){
                     // Code below is self explanatory
                     if (report == 4400) printf("[%d]: Record successfully deleted\n", report);
                     else if (report == 4410) printf("[%d]: Record delete failed : Record with id %s doesn't exist\n", report, wm_getcw());
+                    else if (report == 4420) printf("[%d]: Constraint Failed: Record exists in 't_knife'\n        Please delete the linked record in 't_knife' before deleting this record\n", report);
                     else if (report == 4401) printf("[%d]: Input is missing column 'steel.id'\n", report);
                 }else printf("[!] ERROR : Table '%s' doesn't exist\n", wm_getcw());
             }

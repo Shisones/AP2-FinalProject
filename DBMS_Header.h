@@ -45,20 +45,22 @@ typedef struct steelRecord{
 
 /* ----- [Imported Function Header] ----- */
 
-// Searching Func
+// Searching Function
 int search_knifeID(knifeRecord data[], int n, char target[]);
-int search_knifeCompany(knifeRecord data[], int n, char target[]);
-int search_knifeMaker(knifeRecord data[], int n, char target[]);
-int search_knifeSteel(knifeRecord data[], int n, char target[]);
-
 int search_companyID(companyRecord data[], int n, char target[]);
 int search_companyName(companyRecord data[], int n, char target[]);
-
 int search_makerID(makerRecord data[], int n, char target[]);
 int search_makerName(makerRecord data[], int n, char target[]);
-
 int search_steelID(steelRecord data[], int n, char target[]);
 int search_steelName(steelRecord data[], int n, char target[]);
+// Update Constraint = Update Other Records
+int update_knifeCompany(knifeRecord data[], int n, char target[], char result[]);
+int update_knifeMaker(knifeRecord data[], int n, char target[], char result[]);
+int update_knifeSteel(knifeRecord data[], int n, char target[], char result[]);
+// Delete Constraint = Restrict Deletion
+int restrict_knifeCompany(knifeRecord data[], int n, char target[], char result[]);
+int restrict_knifeMaker(knifeRecord data[], int n, char target[], char result[]);
+int restrict_knifeSteel(knifeRecord data[], int n, char target[], char result[]);
 
 /* ----- [Imported Function Header] ----- */
 
