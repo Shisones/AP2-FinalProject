@@ -271,9 +271,9 @@ void dbms_help(){
     printf("\n");
     printf(" Command :\n");
     printf(" ISI, CREATE         Create a new record, values must be filled for all columns\n");
-    printf(" TAMPIL, READ           Read a table of record\n");
-    printf(" UBAH, UPDATE     Update an existing record (based on the id/first input)\n");
-    printf(" HAPUS, DELETE        Delete an existing record (based on the id/first input)\n");
+    printf(" TAMPIL, READ        Read a table of record\n");
+    printf(" UBAH, UPDATE        Update an existing record (based on the id/first input)\n");
+    printf(" HAPUS, DELETE       Delete an existing record (based on the id/first input)\n");
     printf("\n");
 }
 void dbms_logo(){
@@ -363,13 +363,11 @@ void dbms_error(){
     printf(" - 2401: t_company DELETE failed: input doesn't specify company.id\n");
     printf("\n");
     printf(" - 3100: t_maker CREATE success\n");
-    printf(" - 3100: t_maker CREATE success\n");
     printf(" - 3110: t_maker CREATE failed: input id already existed\n");
     printf(" - 3101: t_maker CREATE failed: input doesn't specify company.id\n");
     printf(" - 3102: t_maker CREATE failed: input doesn't specify company.name\n");
     printf(" - 3200: t_maker READ success\n");
     printf(" - 3210: t_maker READ failed: no records in t_maker\n");
-    printf(" - 3300: t_maker UPDATE success\n");
     printf(" - 3300: t_maker UPDATE success\n");
     printf(" - 3310: t_maker UPDATE failed: input id doesn't exist\n");
     printf(" - 3301: t_maker UPDATE failed: input doesn't specify company.id\n");
@@ -380,13 +378,11 @@ void dbms_error(){
     printf(" - 3401: t_maker DELETE failed: input doesn't specify company.id\n");
     printf("\n");
     printf(" - 4100: t_steel CREATE success\n");
-    printf(" - 4100: t_steel CREATE success\n");
     printf(" - 4110: t_steel CREATE failed: input id already existed\n");
     printf(" - 4101: t_steel CREATE failed: input doesn't specify company.id\n");
     printf(" - 4102: t_steel CREATE failed: input doesn't specify company.name\n");
     printf(" - 4200: t_steel READ success\n");
     printf(" - 4210: t_steel READ failed: no records in t_steel\n");
-    printf(" - 4300: t_steel UPDATE success\n");
     printf(" - 4300: t_steel UPDATE success\n");
     printf(" - 4310: t_steel UPDATE failed: input id doesn't exist\n");
     printf(" - 4301: t_steel UPDATE failed: input doesn't specify company.id\n");
