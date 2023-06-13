@@ -386,9 +386,9 @@ void dbms_help(){
     printf("\n");
 }
 void dbms_logo(){
-    printf("\033[0;34m");
+    printf("\033[0;36m");
     printf("     __  ___              __                 ____   ____     \n");
-    printf("    /  |/  /____ _ _____ / /__ ____  _   __ / __ \\ / __ )    Markov DB v.1.4\n");
+    printf("    /  |/  /____ _ _____ / /__ ____  _   __ / __ \\ / __ )    Markov DB v.1.4.1\n");
     printf("   / /|_/ // __ `// ___// //_// __ \\| | / // / / // __  |    \n");
     printf("  / /  / // /_/ // /   /  ,< / /_/ /| |/ // /_/ // /_/ /     [-h] or [-help] for manual\n");
     printf(" /_/  /_/ \\__,_//_/   /_/|_| \\____/ |___//_____//_____/      [-q] or [--quit] to exit\n");
@@ -611,18 +611,19 @@ int knife_update (knifeRecord knife[], char str[], companyRecord company[], make
     wm_next(str); // Copy Company
     if (wm_end(str) == 1) return 1304; // If String ends abruptly, return 1304 (Maker Not Found)
     int cf = search_companyName(company, companyCtr, wm_getcw());
-    if (cf >= 0) strcpy(knife[knifeCtr].company, wm_getcw());
+    if (cf >= 0) {strcpy(knife[found].company, wm_getcw());
+    printf("%d", cf);}
     else return 1330; // If yompany doesn't exist, return 1330 (company doesn't exist)
 
     wm_next(str); // Copy Maker
     if (wm_end(str) == 1) return 1305; // If String ends abruptly, return 1305 (Steel Not Found)
     int mf = search_makerName(maker, makerCtr, wm_getcw());
-    if (mf >= 0) strcpy(knife[knifeCtr].maker, wm_getcw());
+    if (mf >= 0) strcpy(knife[found].maker, wm_getcw());
     else return 1340; // If yompany doesn't exist, return 1340 (maker doesn't exist)  
 
     wm_next(str); // Copy Steel
     int sf = search_steelName(steel, steelCtr, wm_getcw());
-    if (sf >= 0) strcpy(knife[knifeCtr].steel, wm_getcw());
+    if (sf >= 0) strcpy(knife[found].steel, wm_getcw());
     else return 1350; // If yompany doesn't exist, return 1330 (steel doesn't exist)   
         
     return 1300; // Return 1300 (Update Success);
