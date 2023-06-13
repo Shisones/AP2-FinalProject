@@ -37,6 +37,7 @@ int main(){
     while (!(q || quit)){ // Loops as long as the input isn't '-q' or '--quit'
         printf("MarkovDB (db_knives)> "); // Input pre-text
         scanf(" %200[^\n]s", &str); // Scan for input
+        
 
         int report = 0; // Variable for output code
         if (check_syntax(str) == 0){ // DBMS Control Commands
@@ -45,6 +46,7 @@ int main(){
             else if (strcmp(str, "-i") == 0) dbms_info(); // Used for -i (info)
             else if (strcmp(str, "-e") == 0) dbms_errorshort(); // Used for -e (error)
             else if (strcmp(str, "--err") == 0) dbms_error(); // Used for --err (error)
+            else if (strcmp(str, "-s") == 0) dbms_save(knife, company, maker, steel); // Used for -s (save)
             else if (!(q || quit)) printf("[!] ERROR : DBMS Command \"%s\" not found!\n    use -h to list all available commands\n", str);
         }else if (check_syntax(str) == 1){ // DBMS Record Commands
             wm_start(str); // Start the word machine
@@ -213,7 +215,7 @@ int main(){
                     else if (report == 4420) printf("[%d]: Constraint Failed: Record exists in 't_knife'\n        Please delete the linked record in 't_knife' before deleting this record\n", report);
                     else if (report == 4401) printf("[%d]: Input is missing column 'steel.id'\n", report);
                 }else printf("[!] ERROR : Table '%s' doesn't exist\n", wm_getcw());
-            }
+            }else printf("[!] ERROR : No such command exists\n");
 
         // Syntax Error Handling (ignore -q or --quit)
         }else if (!(q || quit) && check_syntax(str) == -1) printf("[!] ERROR : Invalid Syntax\n    missing semicolon(;) or dash(-)\n");

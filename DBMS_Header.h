@@ -45,6 +45,16 @@ typedef struct steelRecord{
 
 /* ----- [Imported Function Header] ----- */
 
+int len(char str[]); // CAN'T USE STRLEN? MAKE MY OWN LMAO
+void swap_knife(knifeRecord data[], int a, int b);
+void sort_knife(knifeRecord data[]);
+void swap_company(companyRecord data[], int a, int b);
+void sort_company(companyRecord data[]);
+void swap_maker(makerRecord data[], int a, int b);
+void sort_maker(makerRecord data[]);
+void swap_steel(steelRecord data[], int a, int b);
+void sort_steel(steelRecord data[]);
+
 // Searching Function
 int search_knifeID(knifeRecord data[], int n, char target[]);
 int search_companyID(companyRecord data[], int n, char target[]);
@@ -88,6 +98,7 @@ void dbms_help(); // Shows help
 void dbms_info(); // Shows database management system information
 void dbms_error(); // Shows report code and error messages
 void dbms_errorshort(); // Shows report code 
+void dbms_save(knifeRecord knife[], companyRecord company[], makerRecord maker[], steelRecord steel[]); // Save record to local storage
 
 /* ----- [DBMS Control] ----- */
 
@@ -115,3 +126,8 @@ int steel_update (steelRecord steel[], char str[], knifeRecord knife[]);
 int steel_delete (steelRecord steel[], char str[], knifeRecord knife[]);
 
 /* ----- [Struct CRUD] ----- */
+
+void printknife(knifeRecord knife[]);
+void printcompany(companyRecord company[]);
+void printmaker(makerRecord maker[]);
+void printsteel(steelRecord steel[]);

@@ -17,6 +17,107 @@ int steelCtr = 0; // Counter for steels
 
 /* ----- [Imported Functions] ----- */
 
+int len(char str[]){
+    int l = 0; int i = 0;
+    while (str[i] != '\0'){
+        i++; l++;
+    }
+    return l;
+}
+
+void swap_knife(knifeRecord data[], int a, int b){
+    // Swaps two data using a temporary variable
+    knifeRecord temp = data[a];
+    data[a] = data[b];
+    data[b] = temp;
+}
+void sort_knife(knifeRecord data[]){
+    // Sort by determining the maximum value on each array, decreasing the range of array that will be checked each time
+    for (int i = 0; i < knifeCtr-1; i++){
+        int max_idx = i; // Assume the current string is the maximum value
+ 
+        for (int check = i+1; check < knifeCtr; check++){ // Loop to determine if the current string is actually the max value
+            if (strcmp(data[check].company, data[max_idx].company) <= 0){
+                max_idx = check; // Replace the max value with the currently-checked string if not
+            }
+        }
+
+        // Swaps the value of the maximum value string with the current string, thus making it sort in a descending order
+        char temp[50];
+        swap_knife(data, i, max_idx);
+    }
+
+}
+void swap_company(companyRecord data[], int a, int b){
+    // Swaps two data using a temporary variable
+    companyRecord temp = data[a];
+    data[a] = data[b];
+    data[b] = temp;
+}
+void sort_company(companyRecord data[]){
+    // Sort by determining the maximum value on each array, decreasing the range of array that will be checked each time
+    for (int i = 0; i < companyCtr-1; i++){
+        int max_idx = i; // Assume the current string is the maximum value
+ 
+        for (int check = i+1; check < companyCtr; check++){ // Loop to determine if the current string is actually the max value
+            if (strcmp(data[check].id, data[max_idx].id) <= 0){
+                max_idx = check; // Replace the max value with the currently-checked string if not
+            }
+        }
+
+        // Swaps the value of the maximum value string with the current string, thus making it sort in a descending order
+        char temp[50];
+        swap_company(data, i, max_idx);
+    }
+
+}
+void swap_maker(makerRecord data[], int a, int b){
+    // Swaps two data using a temporary variable
+    makerRecord temp = data[a];
+    data[a] = data[b];
+    data[b] = temp;
+}
+void sort_maker(makerRecord data[]){
+    // Sort by determining the maximum value on each array, decreasing the range of array that will be checked each time
+    for (int i = 0; i < makerCtr-1; i++){
+        int max_idx = i; // Assume the current string is the maximum value
+ 
+        for (int check = i+1; check < makerCtr; check++){ // Loop to determine if the current string is actually the max value
+            if (strcmp(data[check].id, data[max_idx].id) <= 0){
+                max_idx = check; // Replace the max value with the currently-checked string if not
+            }
+        }
+
+        // Swaps the value of the maximum value string with the current string, thus making it sort in a descending order
+        char temp[50];
+        swap_maker(data, i, max_idx);
+    }
+
+}
+void swap_steel(steelRecord data[], int a, int b){
+    // Swaps two data using a temporary variable
+    steelRecord temp = data[a];
+    data[a] = data[b];
+    data[b] = temp;
+}
+void sort_steel(steelRecord data[]){
+    // Sort by determining the maximum value on each array, decreasing the range of array that will be checked each time
+    for (int i = 0; i < steelCtr-1; i++){
+        int max_idx = i; // Assume the current string is the maximum value
+ 
+        for (int check = i+1; check < steelCtr; check++){ // Loop to determine if the current string is actually the max value
+            if (strcmp(data[check].id, data[max_idx].id) <= 0){
+                max_idx = check; // Replace the max value with the currently-checked string if not
+            }
+        }
+
+        // Swaps the value of the maximum value string with the current string, thus making it sort in a descending order
+        char temp[50];
+        swap_steel(data, i, max_idx);
+    }
+
+}
+
 int search_knifeID(knifeRecord data[], int n, char target[]) {
     for (int i = 0; i < n; i++) {
         if (strcmp(data[i].id, target) == 0) {
@@ -263,7 +364,8 @@ void dbms_help(){
     printf(" -h, --help           Show basic help message\n");
     printf(" -q, --quit           Quit program\n");
     printf(" -i                   Show information of the db_knives database (AP2 Final Project)\n");
-    printf(" -e, --err                 Show error codes and what they mean (AP2 Final Project)\n");
+    printf(" -e, --err            Show error codes and what they mean (AP2 Final Project)\n");
+    printf(" -s                   Save the current data into local storage (AP2 Final Project)\n");
     printf("\n");
     printf(" ----- Database Control (AP2 Final Project) ----- \n");
     printf("\n");
@@ -278,7 +380,7 @@ void dbms_help(){
 }
 void dbms_logo(){
     printf("     __  ___              __                 ____   ____     \n");
-    printf("    /  |/  /____ _ _____ / /__ ____  _   __ / __ \\ / __ )    Markov DB v.1.1\n");
+    printf("    /  |/  /____ _ _____ / /__ ____  _   __ / __ \\ / __ )    Markov DB v.1.3\n");
     printf("   / /|_/ // __ `// ___// //_// __ \\| | / // / / // __  |    \n");
     printf("  / /  / // /_/ // /   /  ,< / /_/ /| |/ // /_/ // /_/ /     [-h] or [-help] for manual\n");
     printf(" /_/  /_/ \\__,_//_/   /_/|_| \\____/ |___//_____//_____/      [-q] or [--quit] to exit\n");
@@ -294,7 +396,7 @@ void dbms_info(){
     printf(" Table Structure and Information \n");
     printf("\n");
     printf(" Knife Table (t_knife) : 5 Columns\n");
-    printf(" - knife.id[25](char)\n - knife.name[50](char)\n - knife.company[50](char)\n - knife.maker[50](char)\n - knife.steel[50](char)\n");
+    printf(" - knife.id[25](char)\n - knife.name[50](char)\n - knife.company[50](char), foreign key(t_company)\n - knife.maker[50](char), foreign key(t_maker)\n - knife.steel[50](char), foreign key(t_steel)\n");
     printf("\n");
     printf(" Company Table (t_company) : 2 Columns\n");
     printf(" - company.id[25](char)\n - company.name[50](char)\n");
@@ -406,6 +508,20 @@ void dbms_errorshort(){
     printf(" A successful process is usually indicated by a code where the last two digits are 0, (e.g. XX00)\n");
     printf("\n");
 }
+void dbms_save(knifeRecord knife[], companyRecord company[], makerRecord maker[], steelRecord steel[]){
+    // Sort the struct, for a tidier record-keeping
+    sort_knife(knife);
+    sort_company(company);
+    sort_maker(maker);
+    sort_steel(steel);
+    // Overwrite the R_Knife, R_Company, R_Maker, and R_Steel data with the new one
+    write_knifeFile(knifeCtr, knife, "R_Knife.dat");
+    write_companyFile(companyCtr, company, "R_Company.dat");
+    write_makerFile(makerCtr, maker, "R_Maker.dat");
+    write_steelFile(steelCtr, steel, "R_Steel.dat");
+    // Return save report
+    printf("[i] Data saved to local storage successfully\n");
+}
 
 /* ----- [DBMS Control] ----- */
 
@@ -449,9 +565,10 @@ int knife_create (knifeRecord knife[], char str[], companyRecord company[], make
 }
 int knife_read (knifeRecord knife[], char str[]){
     if (knifeCtr == 0) return 1210; // If table is empty, return 1210 (No record)
-    for (int i = 0; i < knifeCtr; i++){
-        printf("%s %s %s %s %s\n", knife[i].id, knife[i].name, knife[i].company, knife[i].maker, knife[i].steel);
-    }
+
+    sort_knife(knife); // Sort the record first
+    printknife(knife); // Print the knife records
+
     return 1200; // Return 1200 (Read Success)
 }
 int knife_update (knifeRecord knife[], char str[], companyRecord company[], makerRecord maker[], steelRecord steel[]){
@@ -521,9 +638,10 @@ int company_create(companyRecord company[], char str[]){
 }
 int company_read (companyRecord company[], char str[]){
     if (companyCtr == 0) return 2210; // If table is empty, return 2210 (No record)
-    for (int i = 0; i < companyCtr; i++){
-        printf("%s %s\n", company[i].id, company[i].name);
-    }
+    
+    sort_company(company); // Sort the record first
+    printcompany(company); // Print the company records
+
     return 2200; // Return 2200 (Read Success)
 }
 int company_update (companyRecord company[], char str[], knifeRecord knife[]){
@@ -584,9 +702,10 @@ int maker_create(makerRecord maker[], char str[]){
 }
 int maker_read (makerRecord maker[], char str[]){
     if (makerCtr == 0) return 3210; // If table is empty, return 3210 (No record)
-    for (int i = 0; i < makerCtr; i++){
-        printf("%s %s\n", maker[i].id, maker[i].name);
-    }
+    
+    sort_maker(maker); // Sort the record first
+    printmaker(maker); // Print the maker records
+
     return 3200; // Return 3200 (Read Success)
 }
 int maker_update (makerRecord maker[], char str[], knifeRecord knife[]){
@@ -647,9 +766,10 @@ int steel_create(steelRecord steel[], char str[]){
 }
 int steel_read (steelRecord steel[], char str[]){
     if (steelCtr == 0) return 4210; // If table is empty, return 4210 (No record)
-    for (int i = 0; i < steelCtr; i++){
-        printf("%s %s\n", steel[i].id, steel[i].name);
-    }
+    
+    sort_steel(steel); // Sort the record first
+    printsteel(steel); // Print the steel records
+
     return 4200; // Return 4200 (Read Success)
 }
 int steel_update (steelRecord steel[], char str[], knifeRecord knife[]){
@@ -693,5 +813,173 @@ int steel_delete (steelRecord steel[], char str[], knifeRecord knife[]){
 }
 
 /* ----- [Struct CRUD] ----- */
+
+void printknife(knifeRecord knife[]){
+    // Maximum Length of variables
+    int idMax = 0; int nameMax = 0;
+    int companyMax = 0; int makerMax = 0; int steelMax = 0;
+
+    // Determine the longest record of each column
+    for (int i = 0; i < knifeCtr; i++){ // Loop over every record
+        if (len(knife[i].id) > idMax) idMax = len(knife[i].id);
+        if (len(knife[i].name) > nameMax) nameMax = len(knife[i].name);
+        if (len(knife[i].company) > companyMax) companyMax = len(knife[i].company);
+        if (len(knife[i].maker) > makerMax) makerMax = len(knife[i].maker);
+        if (len(knife[i].steel) > steelMax) steelMax = len(knife[i].steel);
+    }
+
+    int idSpc = (idMax > 8) ? idMax + 2 : 10; // Dynamize the id space, based on "Knife ID"
+    int nameSpc = (nameMax > 4) ? nameMax + 2 : 6; // Dynamize the name space, based on "Name"
+    int companySpc = (companyMax > 7) ? companyMax + 2 : 9; // Dynamize the company space, based on "Company"
+    int makerSpc = (makerMax > 14) ? makerMax + 2 : 16; // Dynamize the maker space, based on "Maker/Designer"
+    int steelSpc = (steelMax > 5) ? steelMax + 2 : 7; // Dynamize the steel space, based on "Steel"
+
+    // This is for table, yeah, it's absolutely disgusting, i know.. but i understand this more than HTML/CSS
+    for (int i = 0; i < idSpc+nameSpc+companySpc+makerSpc+steelSpc + 6; i++){
+        printf("~");
+    }printf("\n");
+    printf("| Knife ID ");
+    for (int s = 0; s < idSpc-10; s++){ printf(" "); }
+    printf("| Name ");
+    for (int s = 0; s < nameSpc-6; s++){ printf(" "); }
+    printf("| Company ");
+    for (int s = 0; s < companySpc-9; s++){ printf(" "); }
+    printf("| Maker/Designer ");
+    for (int s = 0; s < makerSpc-16; s++){ printf(" "); }
+    printf("| Steel ");
+    for (int s = 0; s < steelSpc-7; s++){ printf(" "); }
+    printf("|\n");
+    for (int i = 0; i < idSpc+nameSpc+companySpc+makerSpc+steelSpc + 6; i++){
+        printf("~");
+    }printf("\n");
+    // Print the actual record
+    for (int r = 0; r < knifeCtr; r++){
+        printf("| %s ", knife[r].id);
+        for (int s = 0; s < idSpc-len(knife[r].id)-2;s++){ printf(" "); }
+        printf("| %s ", knife[r].name);
+        for (int s = 0; s < nameSpc-len(knife[r].name)-2;s++){ printf(" "); }
+        printf("| %s ", knife[r].company);
+        for (int s = 0; s < companySpc-len(knife[r].company)-2;s++){ printf(" "); }
+        printf("| %s ", knife[r].maker);
+        for (int s = 0; s < makerSpc-len(knife[r].maker)-2;s++){ printf(" "); }
+        printf("| %s ", knife[r].steel);
+        for (int s = 0; s < steelSpc-len(knife[r].steel)-2;s++){ printf(" "); }
+        printf("|\n");
+    }
+    for (int i = 0; i < idSpc+nameSpc+companySpc+makerSpc+steelSpc + 6; i++){
+        printf("~");
+    }printf("\n");
+}
+void printcompany(companyRecord company[]){
+    // Maximum Length of variables
+    int idMax = 0; int nameMax = 0;
+
+    // Determine the longest record of each column
+    for (int i = 0; i < companyCtr; i++){ // Loop over every record
+        if (len(company[i].id) > idMax) idMax = len(company[i].id);
+        if (len(company[i].name) > nameMax) nameMax = len(company[i].name);
+    }
+
+    int idSpc = (idMax > 10) ? idMax + 2 : 12; // Dynamize the id space, based on "Company ID"
+    int nameSpc = (nameMax > 4) ? nameMax + 2 : 6; // Dynamize the name space, based on "Name"
+
+    // This is for table, yeah, it's absolutely disgusting, i know.. but i understand this more than HTML/CSS
+    for (int i = 0; i < idSpc+nameSpc+3; i++){
+        printf("~");
+    }printf("\n");
+    printf("| Company ID ");
+    for (int s = 0; s < idSpc-12; s++){ printf(" "); }
+    printf("| Name ");
+    for (int s = 0; s < nameSpc-6; s++){ printf(" "); }
+    printf("|\n");
+    for (int i = 0; i < idSpc+nameSpc+3; i++){
+        printf("~");
+    }printf("\n");
+    // Print the actual record
+    for (int r = 0; r < companyCtr; r++){
+        printf("| %s ", company[r].id);
+        for (int s = 0; s < idSpc-len(company[r].id)-2;s++){ printf(" "); }
+        printf("| %s ", company[r].name);
+        for (int s = 0; s < nameSpc-len(company[r].name)-2;s++){ printf(" "); }
+        printf("|\n");
+    }
+    for (int i = 0; i < idSpc+nameSpc+3; i++){
+        printf("~");
+    }printf("\n");
+}
+void printmaker(makerRecord maker[]){
+    // Maximum Length of variables
+    int idMax = 0; int nameMax = 0;
+
+    // Determine the longest record of each column
+    for (int i = 0; i < makerCtr; i++){ // Loop over every record
+        if (len(maker[i].id) > idMax) idMax = len(maker[i].id);
+        if (len(maker[i].name) > nameMax) nameMax = len(maker[i].name);
+    }
+
+    int idSpc = (idMax > 8) ? idMax + 2 : 10; // Dynamize the id space, based on "Maker ID"
+    int nameSpc = (nameMax > 4) ? nameMax + 2 : 6; // Dynamize the name space, based on "Name"
+
+    // This is for table, yeah, it's absolutely disgusting, i know.. but i understand this more than HTML/CSS
+    for (int i = 0; i < idSpc+nameSpc+3; i++){
+        printf("~");
+    }printf("\n");
+    printf("| Maker ID ");
+    for (int s = 0; s < idSpc-10; s++){ printf(" "); }
+    printf("| Name ");
+    for (int s = 0; s < nameSpc-6; s++){ printf(" "); }
+    printf("|\n");
+    for (int i = 0; i < idSpc+nameSpc+3; i++){
+        printf("~");
+    }printf("\n");
+    // Print the actual record
+    for (int r = 0; r < makerCtr; r++){
+        printf("| %s ", maker[r].id);
+        for (int s = 0; s < idSpc-len(maker[r].id)-2;s++){ printf(" "); }
+        printf("| %s ", maker[r].name);
+        for (int s = 0; s < nameSpc-len(maker[r].name)-2;s++){ printf(" "); }
+        printf("|\n");
+    }
+    for (int i = 0; i < idSpc+nameSpc+3; i++){
+        printf("~");
+    }printf("\n");
+}
+void printsteel(steelRecord steel[]){
+    // Maximum Length of variables
+    int idMax = 0; int nameMax = 0;
+
+    // Determine the longest record of each column
+    for (int i = 0; i < steelCtr; i++){ // Loop over every record
+        if (len(steel[i].id) > idMax) idMax = len(steel[i].id);
+        if (len(steel[i].name) > nameMax) nameMax = len(steel[i].name);
+    }
+
+    int idSpc = (idMax > 8) ? idMax + 2 : 10; // Dynamize the id space, based on "Steel ID"
+    int nameSpc = (nameMax > 4) ? nameMax + 2 : 6; // Dynamize the name space, based on "Name"
+
+    // This is for table, yeah, it's absolutely disgusting, i know.. but i understand this more than HTML/CSS
+    for (int i = 0; i < idSpc+nameSpc+3; i++){
+        printf("~");
+    }printf("\n");
+    printf("| Steel ID ");
+    for (int s = 0; s < idSpc-10; s++){ printf(" "); }
+    printf("| Name ");
+    for (int s = 0; s < nameSpc-6; s++){ printf(" "); }
+    printf("|\n");
+    for (int i = 0; i < idSpc+nameSpc+3; i++){
+        printf("~");
+    }printf("\n");
+    // Print the actual record
+    for (int r = 0; r < steelCtr; r++){
+        printf("| %s ", steel[r].id);
+        for (int s = 0; s < idSpc-len(steel[r].id)-2;s++){ printf(" "); }
+        printf("| %s ", steel[r].name);
+        for (int s = 0; s < nameSpc-len(steel[r].name)-2;s++){ printf(" "); }
+        printf("|\n");
+    }
+    for (int i = 0; i < idSpc+nameSpc+3; i++){
+        printf("~");
+    }printf("\n");
+}
 
 
