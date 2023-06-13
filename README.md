@@ -29,6 +29,4 @@ Tubes Alpro Planning Route
 - Multiple Command Condition (READ UPDATE)
 - Wrong syntaxes
 
-5. (Not) Additional Features
-- JOIN tables
-- WHERE clauses
+5. The Rest lmao just wing it

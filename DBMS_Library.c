@@ -39,7 +39,7 @@ void sort_knife(knifeRecord data[]){
         int max_idx = i; // Assume the current string is the maximum value
  
         for (int check = i+1; check < knifeCtr; check++){ // Loop to determine if the current string is actually the max value
-            if (strcmp(data[check].company, data[max_idx].company) <= 0){
+            if (strcmp(data[check].id, data[max_idx].id) <= 0){
                 max_idx = check; // Replace the max value with the currently-checked string if not
             }
         }
@@ -368,7 +368,11 @@ void dbms_help(){
     printf(" -q, --quit           Quit program\n");
     printf(" -i                   Show information of the db_knives database (AP2 Final Project)\n");
     printf(" -e, --err            Show error codes and what they mean (AP2 Final Project)\n");
-    printf(" -s                   Save the current data into local storage (AP2 Final Project)\n");
+    printf(" -s(param)            Save the current data into local storage (AP2 Final Project)\n");
+    printf("                      Params: \n");
+    printf("                      - (auto): Enable autosave \n");
+    printf("                      - (man): Disable autosave, save manually \n");
+    printf(" -c                   Clear Working Space (same as cls)\n");
     printf("\n");
     printf(" ----- Database Control (AP2 Final Project) ----- \n");
     printf("\n");
@@ -382,12 +386,14 @@ void dbms_help(){
     printf("\n");
 }
 void dbms_logo(){
+    printf("\033[0;34m");
     printf("     __  ___              __                 ____   ____     \n");
-    printf("    /  |/  /____ _ _____ / /__ ____  _   __ / __ \\ / __ )    Markov DB v.1.3.1\n");
+    printf("    /  |/  /____ _ _____ / /__ ____  _   __ / __ \\ / __ )    Markov DB v.1.4\n");
     printf("   / /|_/ // __ `// ___// //_// __ \\| | / // / / // __  |    \n");
     printf("  / /  / // /_/ // /   /  ,< / /_/ /| |/ // /_/ // /_/ /     [-h] or [-help] for manual\n");
     printf(" /_/  /_/ \\__,_//_/   /_/|_| \\____/ |___//_____//_____/      [-q] or [--quit] to exit\n");
     printf("                                                             \n");
+    printf("\033[0m");
     printf("[*] Created by Jason Suryoatmojo (2204524) \n");
     printf("[!] This database management system is made specifically to fulfill \n");
     printf("    the score requirement for Algorithm and Programming II subject \n");
@@ -523,9 +529,10 @@ void dbms_save(knifeRecord knife[], companyRecord company[], makerRecord maker[]
     write_makerFile(makerCtr, maker, "R_Maker.dat");
     write_steelFile(steelCtr, steel, "R_Steel.dat");
     // Return save report
-    printf("[i] Data saved to local storage successfully\n");
+    printf("\033[0;33m[i] Data saved to local storage successfully\n\033[0m");
 }
 void dbms_quit(){
+    printf("\033[0;32m\n");
     printf("  ______ __                   __  __  __             \n");
     printf(" /_  __// /_   ____ _ ____   / /__\\ \\/ /____   __  __\n");
     printf("  / /  / __ \\ / __ `// __ \\ / //_/ \\  // __ \\ / / / /\n");
@@ -535,7 +542,7 @@ void dbms_quit(){
     printf("[i] Thank you for using MarkovDB, please expect more improvements in the future\n");
     printf("    Special thanks kepada bu Rosa Ariani Sukamto, M.T. selaku Dosen Alpro II dan\n");
     printf("    Tim Asisten Praktikum Alpro II 2022\n");
-    printf("\n");
+    printf("\033[0m\n");
 }
 
 /* ----- [DBMS Control] ----- */

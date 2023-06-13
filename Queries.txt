@@ -1,0 +1,40 @@
+// General Database Structure
+-i
+
+// General Explanation about table creation
+CREATE t_company C-010 Hinderer_Knives;
+READ t_company;
+// Error example: Foreign key constraint: cannot insert
+CREATE t_knife H-XM18 Hinderer_XM18 Hinderer_Knives Rick_Hinderer VANAX;
+// Error fix
+CREATE t_maker M-005 Rick_Hinderer;
+CREATE t_knife HK-XM18 Hinderer_XM18 Hinderer_Knives Rick_Hinderer VANAX;
+READ t_knife;
+
+// Error example: input is missing
+DELETE t_knife HK-XM18;
+CREATE t_knife HK-XM18 Hinderer_XM18 Hinderer_Knives Rick_Hinderer VANAX;
+
+// Error example: creation of existing id
+CREATE t_knife HK-XM18 HindererExem18 Hinderer_Knives Rick_Hinderer Maxamet;
+// Error fix: use update instead
+UPDATE t_knife HK-XM18 HindererExem18 Hinderer_Knives Rick_Hinderer Maxamet;
+
+// Error example: Foreign key constraint : Update
+READ t_maker;
+UPDATE t_maker M-005 Rick_Hinderer;
+READ t_knife;
+
+// Error example: Foreign key constraint : Delete
+DELETE t_steel Maxamet;
+CREATE t_steel BesiIndo;
+DELETE t_steel BesiIndo;
+
+
+// General Database Explanation
+-h, -q, -e, syntax error, -s, -s auto, -s man
+Saving system
+How the constraint work
+
+
+Inspiration (WPScan, SQLmap, nmap)
