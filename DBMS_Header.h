@@ -46,6 +46,8 @@ typedef struct steelRecord{
 /* ----- [Imported Function Header] ----- */
 
 int len(char str[]); // CAN'T USE STRLEN? MAKE MY OWN LMAO
+
+// Sorting Functions
 void swap_knife(knifeRecord data[], int a, int b);
 void sort_knife(knifeRecord data[]);
 void swap_company(companyRecord data[], int a, int b);
@@ -99,6 +101,7 @@ void dbms_info(); // Shows database management system information
 void dbms_error(); // Shows report code and error messages
 void dbms_errorshort(); // Shows report code 
 void dbms_save(knifeRecord knife[], companyRecord company[], makerRecord maker[], steelRecord steel[]); // Save record to local storage
+void dbms_quit();
 
 /* ----- [DBMS Control] ----- */
 

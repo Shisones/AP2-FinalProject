@@ -221,10 +221,8 @@ int main(){
         }else if (!(q || quit) && check_syntax(str) == -1) printf("[!] ERROR : Invalid Syntax\n    missing semicolon(;) or dash(-)\n");
     }
 
-    write_knifeFile(knifeCtr, knife, "R_Knife.dat");
-    write_companyFile(companyCtr, company, "R_Company.dat");
-    write_makerFile(makerCtr, maker, "R_Maker.dat");
-    write_steelFile(steelCtr, steel, "R_Steel.dat");
+    dbms_save(knife, company, maker, steel); // Save the progress automatically whenever we quit the program (just in case)
+    dbms_quit(); // Display quit message
 
     return 0;
 }

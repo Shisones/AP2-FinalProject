@@ -17,6 +17,7 @@ int steelCtr = 0; // Counter for steels
 
 /* ----- [Imported Functions] ----- */
 
+// No strlen? No problem
 int len(char str[]){
     int l = 0; int i = 0;
     while (str[i] != '\0'){
@@ -25,6 +26,7 @@ int len(char str[]){
     return l;
 }
 
+// Sort Functions
 void swap_knife(knifeRecord data[], int a, int b){
     // Swaps two data using a temporary variable
     knifeRecord temp = data[a];
@@ -118,6 +120,7 @@ void sort_steel(steelRecord data[]){
 
 }
 
+// Search Functions
 int search_knifeID(knifeRecord data[], int n, char target[]) {
     for (int i = 0; i < n; i++) {
         if (strcmp(data[i].id, target) == 0) {
@@ -380,7 +383,7 @@ void dbms_help(){
 }
 void dbms_logo(){
     printf("     __  ___              __                 ____   ____     \n");
-    printf("    /  |/  /____ _ _____ / /__ ____  _   __ / __ \\ / __ )    Markov DB v.1.3\n");
+    printf("    /  |/  /____ _ _____ / /__ ____  _   __ / __ \\ / __ )    Markov DB v.1.3.1\n");
     printf("   / /|_/ // __ `// ___// //_// __ \\| | / // / / // __  |    \n");
     printf("  / /  / // /_/ // /   /  ,< / /_/ /| |/ // /_/ // /_/ /     [-h] or [-help] for manual\n");
     printf(" /_/  /_/ \\__,_//_/   /_/|_| \\____/ |___//_____//_____/      [-q] or [--quit] to exit\n");
@@ -521,6 +524,18 @@ void dbms_save(knifeRecord knife[], companyRecord company[], makerRecord maker[]
     write_steelFile(steelCtr, steel, "R_Steel.dat");
     // Return save report
     printf("[i] Data saved to local storage successfully\n");
+}
+void dbms_quit(){
+    printf("  ______ __                   __  __  __             \n");
+    printf(" /_  __// /_   ____ _ ____   / /__\\ \\/ /____   __  __\n");
+    printf("  / /  / __ \\ / __ `// __ \\ / //_/ \\  // __ \\ / / / /\n");
+    printf(" / /  / / / // /_/ // / / // ,<    / // /_/ // /_/ / \n");
+    printf("/_/  /_/ /_/ \\__,_//_/ /_//_/|_|  /_/ \\____/ \\__,_/  \n");
+    printf("\n");
+    printf("[i] Thank you for using MarkovDB, please expect more improvements in the future\n");
+    printf("    Special thanks kepada bu Rosa Ariani Sukamto, M.T. selaku Dosen Alpro II dan\n");
+    printf("    Tim Asisten Praktikum Alpro II 2022\n");
+    printf("\n");
 }
 
 /* ----- [DBMS Control] ----- */
@@ -814,6 +829,8 @@ int steel_delete (steelRecord steel[], char str[], knifeRecord knife[]){
 
 /* ----- [Struct CRUD] ----- */
 
+/* ----- [Table Creation] ----- */
+
 void printknife(knifeRecord knife[]){
     // Maximum Length of variables
     int idMax = 0; int nameMax = 0;
@@ -981,5 +998,7 @@ void printsteel(steelRecord steel[]){
         printf("~");
     }printf("\n");
 }
+
+/* ----- [Table Creation] ----- */
 
 
