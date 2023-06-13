@@ -280,7 +280,7 @@ void dbms_logo(){
     printf("     __  ___              __                 ____   ____     \n");
     printf("    /  |/  /____ _ _____ / /__ ____  _   __ / __ \\ / __ )    Markov DB v.1.1\n");
     printf("   / /|_/ // __ `// ___// //_// __ \\| | / // / / // __  |    \n");
-    printf("  / /  / // /_/ // /   / ,<  / /_/ /| |/ // /_/ // /_/ /     [-h] or [-help] for manual\n");
+    printf("  / /  / // /_/ // /   /  ,< / /_/ /| |/ // /_/ // /_/ /     [-h] or [-help] for manual\n");
     printf(" /_/  /_/ \\__,_//_/   /_/|_| \\____/ |___//_____//_____/      [-q] or [--quit] to exit\n");
     printf("                                                             \n");
     printf("[*] Created by Jason Suryoatmojo (2204524) \n");
@@ -352,7 +352,6 @@ void dbms_error(){
     printf(" - 2102: t_company CREATE failed: input doesn't specify company.name\n");
     printf(" - 2200: t_company READ success\n");
     printf(" - 2210: t_company READ failed: no records in t_company\n");
-    printf(" - 2300: t_company UPDATE success\n");
     printf(" - 2300: t_company UPDATE success\n");
     printf(" - 2310: t_company UPDATE failed: input id doesn't exist\n");
     printf(" - 2301: t_company UPDATE failed: input doesn't specify company.id\n");
